@@ -1,0 +1,18 @@
+[package]
+name = "flynn_labs"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+yew = "0.19"
+yew-router = "0.16"
+gloo-events = "0.1.2"
+# hello_lib = { path = "../hello_lib"}
+
+[dependencies.material-yew]
+version = "0.2"
+features = [
+    "button",
+    "tabs",
+]
