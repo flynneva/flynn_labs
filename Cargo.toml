@@ -8,11 +8,7 @@ license = "MIT"
 yew = "0.19"
 yew-router = "0.16"
 gloo-events = "0.1.2"
-# hello_lib = { path = "../hello_lib"}
-
-[dependencies.material-yew]
-version = "0.2"
-features = [
-    "button",
-    "tabs",
-]
+gloo-utils = "0.1.4"
+# hello_lib = { path = "../hello_lib" }
+# ncaa_data_rs = { path = "../ncaa-data-rs" }
+material-yew = {version = "0.2", features = ["full"] }

@@ -1,23 +1,22 @@
 use yew::prelude::*;
-use yew_router::prelude::*;
-use material_yew::MatButton;
 
-use crate::components::pages::Route;
+use material_yew::{
+    MatButton,
+};
 
 use crate::components::layout::{
     tabs::TopTabs,
-    tabs::SportsTabs,
 };
 
+struct SportLevel {
+    inner: bool,  // true for pro, false for NCAA
+}
 #[function_component(SportsPage)]
 pub fn sports() -> Html {
-    let history = use_history().unwrap();
-    
     html! {
         <div>
             <TopTabs />
-            <SportsTabs />
-            <h1>{ "Sports" }</h1>
+            <MatButton label="NCAA" icon="school" />
         </div>
     }
 }
