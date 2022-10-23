@@ -1,17 +1,16 @@
 use yew::prelude::*;
 
-use crate::components::layout::{
-    menu::MainMenu,
-};
-
 #[function_component(HomePage)]
 pub fn home_page() -> Html {
 
     html! {
         <>
-            <MainMenu />
             <h1>{ "Home" }</h1>
-            <p>{"Welcome, welcome, welcome!"}</p>
+            <p>{"Welcome to my site!"}</p>
+            <br/>
+            <p>{"Here I experiment with ideas and learn new things."}</p>
+            <br/>
+            <p>{"Hope you enjoy it!"}</p>
         </>
     }
 }

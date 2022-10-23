@@ -10,6 +10,11 @@ use flynn_labs::components::pages::{
     not_found::NotFoundPage,
 };
 
+use flynn_labs::components::layout::{
+  menu::MainMenu,
+};
+
+
 fn switch(routes: &Route) -> Html {
   match routes {
     Route::Home => html! { <HomePage /> },
@@ -25,6 +30,7 @@ fn app() -> Html {
     html! {
         <>
           <BrowserRouter>
+            <MainMenu />
             <Switch <Route> render={Switch::render(switch)} />
           </BrowserRouter>
         </>
