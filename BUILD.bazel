@@ -1,0 +1,24 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+
+rust_binary(
+    name = "flynn_labs",
+    srcs = ["main.rs"],
+    deps = [
+        "//components",
+        "@crates//:yew",
+        "@crates//:yew-router",
+    ]
+)
+
+sh_binary(
+    name = "serve",
+    srcs = ["serve.sh"],
+    data = [
+        ":flynn_labs",
+        "//styles",
+        "index.html",
+        "Trunk.toml",
+        # "@crates//:trunk",
+    ],
+)

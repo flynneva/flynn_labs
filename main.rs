@@ -1,8 +1,8 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use flynn_labs::components::pages::{
-    Route,
+use components::pages::{
+    AppRoute,
     home::HomePage,
     sports::SportsPage,
     robots::RobotsPage,
@@ -10,18 +10,18 @@ use flynn_labs::components::pages::{
     not_found::NotFoundPage,
 };
 
-use flynn_labs::components::layout::{
+use components::layout::{
   menu::MainMenu,
 };
 
 
-fn switch(routes: &Route) -> Html {
+fn switch(routes: &AppRoute) -> Html {
   match routes {
-    Route::Home => html! { <HomePage /> },
-    Route::Sports => html! { <SportsPage /> },
-    Route::Robots => html! { <RobotsPage /> },
-    Route::Garden => html! { <GardenPage /> },
-    Route::NotFound => html! { <NotFoundPage /> },
+    AppRoute::Home => html! { <HomePage /> },
+    AppRoute::Sports => html! { <SportsPage /> },
+    AppRoute::Robots => html! { <RobotsPage /> },
+    AppRoute::Garden => html! { <GardenPage /> },
+    AppRoute::NotFound => html! { <NotFoundPage /> },
   }
 }
 
@@ -31,7 +31,7 @@ fn app() -> Html {
         <>
           <BrowserRouter>
             <MainMenu />
-            <Switch <Route> render={Switch::render(switch)} />
+            <Switch <AppRoute> render={Switch::render(switch)} />
           </BrowserRouter>
         </>
     }

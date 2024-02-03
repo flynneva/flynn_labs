@@ -7,8 +7,8 @@ pub mod robots;
 pub mod garden;
 pub mod not_found;
 
-#[derive(Clone, PartialEq, Routable)]
-pub enum Route {
+#[derive(Debug, Clone, Copy, PartialEq, Routable)]
+pub enum AppRoute {
   #[at("/")]
   Home,
   #[at("/sports")]
@@ -20,3 +20,5 @@ pub enum Route {
   #[at("/*")]
   NotFound,
 }
+
+pub type AppLink = Link<AppRoute>;

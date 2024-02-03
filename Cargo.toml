@@ -5,10 +5,18 @@ edition = "2021"
 license = "MIT"
 
 [dependencies]
-yew = "0.19"
-yew-router = "0.16"
+yew = { version = "0.21", features = ["csr"] }
+yew-router = "0.18"
 gloo-events = "0.1.2"
 gloo-utils = "0.1.4"
 # hello_lib = { path = "../hello_lib" }
 # ncaa_data_rs = { path = "../ncaa-data-rs" }
-material-yew = {version = "0.2", features = ["full"] }
+trunk = "0.18.7"
+
+[lib]
+name = "components"
+path = "./components/lib.rs"
+
+[[bin]]
+name = "flynn_labs"
+path = "./main.rs"

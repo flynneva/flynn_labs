@@ -1,0 +1,12 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+
+rust_library(
+    name = "components",
+    srcs = glob(["**/*.rs"]),
+    deps = [
+        "@crates//:yew",
+        "@crates//:yew-router",
+    ],
+    visibility = ["//visibility:public"],
+)

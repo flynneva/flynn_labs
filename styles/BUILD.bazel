@@ -1,0 +1,8 @@
+
+filegroup(
+    name = "styles",
+    srcs = [
+        "styles.scss",
+    ],
+    visibility = ["//visibility:public"],
+)
