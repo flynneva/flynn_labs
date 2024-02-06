@@ -10,12 +10,8 @@ use components::pages::{
     not_found::NotFoundPage,
 };
 
-use components::layout::{
-  menu::MainMenu,
-};
 
-
-fn switch(routes: &AppRoute) -> Html {
+fn switch(routes: AppRoute) -> Html {
   match routes {
     AppRoute::Home => html! { <HomePage /> },
     AppRoute::Sports => html! { <SportsPage /> },
@@ -30,13 +26,12 @@ fn app() -> Html {
     html! {
         <>
           <BrowserRouter>
-            <MainMenu />
-            <Switch <AppRoute> render={Switch::render(switch)} />
+            <Switch <AppRoute> render={switch} />
           </BrowserRouter>
         </>
     }
 }
 
 fn main() {
-    yew::start_app::<App>();
+    yew::Renderer::<App>::new().render();
 }

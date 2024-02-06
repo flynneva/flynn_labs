@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 #[function_component(GardenPage)]
-pub fn sports() -> Html {
+pub fn garden() -> Html {
 
     html! {
         <>

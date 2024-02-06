@@ -1,4 +1,5 @@
 use yew_router::prelude::*;
+use yew::Html;
 
 // List of pages in the site
 pub mod home;
@@ -6,6 +7,7 @@ pub mod sports;
 pub mod robots;
 pub mod garden;
 pub mod not_found;
+pub mod page;
 
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
 pub enum AppRoute {
