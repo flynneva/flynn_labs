@@ -10,8 +10,7 @@ yew-router = "0.18"
 gloo-events = "0.1.2"
 gloo-utils = "0.1.4"
 # hello_lib = { path = "../hello_lib" }
-# ncaa_data_rs = { path = "../ncaa-data-rs" }
-trunk = "0.18.7"
+ncaa_data_rs = "0.1.3"
 
 [lib]
 name = "components"

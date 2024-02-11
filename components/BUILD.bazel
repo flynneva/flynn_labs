@@ -7,6 +7,7 @@ rust_library(
     deps = [
         "@crates//:yew",
         "@crates//:yew-router",
+        "@crates//:ncaa_data_rs",
     ],
     visibility = ["//visibility:public"],
 )

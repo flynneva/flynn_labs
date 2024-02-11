@@ -21,7 +21,6 @@ pub fn pages_list(PagesListProps {pages}: &PagesListProps) -> Html {
             <div class="container">
               <h1>{format!("{}", page.title)}</h1>
               <p>{format!("{}", page.description)}</p>
-              <p>{format!("{}", page.url)}</p>
             </div>
           </a>
         </div>

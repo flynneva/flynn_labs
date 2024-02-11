@@ -9,15 +9,9 @@ pub fn home_page() -> Html {
 
     let pages= vec![
         Page {
-            id: 0,
-            title: "Home".to_string(),
-            description: "The homepage".to_string(),
-            url: "/".to_string(),
-        },
-        Page {
             id: 1,
             title: "Sports".to_string(),
-            description: "The page about sports".to_string(),
+            description: "Things about sports".to_string(),
             url: "/sports".to_string(),
         },
         Page {
@@ -38,6 +32,7 @@ pub fn home_page() -> Html {
     html! {
         <>
             <div class="scroll-container">
+                <h1>{"Flynn Labs"}</h1>
                 <PagesList pages={pages} />
             </div>
         </>

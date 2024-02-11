@@ -1,18 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Overpass%20Mono:700|Overpass%20Mono:400');
 
-html {
-    --mdc-theme-primary: #18453B;
-    --mdc-theme-primary-light: #6f8883;
-    --mdc-theme-secondary: #ffffff;
-    --mdc-theme-surface: #e3e3e3;
-    --mdc-theme-backgroud: #1d1d1d;
-    --mdc-theme-on-primary: #ffffff;
-    --mdc-typography-button-font-size: 15px;
-    --mdc-typography-font-family: Helvetica Light;
-    --mdc-tab-color-default: var(--mdc-theme-on-primary);
-    --mdc-tab-text-label-color-default: var(--mdc-theme-on-primary);
-}
-
 body {
   font-family: 'Overpass Mono';
   font-weight: 400;
@@ -36,6 +23,7 @@ h4 {font-size: 1.421rem; /* 22.72px */}
 h5 {font-size: 1.066rem; /* 17.12px */}
 
 small {font-size: 0.600rem; /* 9.6px */}
+
 body {
     color: #e3e3e3;
     background-color: #1d1d1d;
@@ -65,6 +53,39 @@ a, a:hover, a:visited, a:active {
     white-space: nowrap;
     padding: 10px;
     text-align: center;
+}
+
+select {  
+  background-color: #1d1d1d;
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: auto 50%;
+  border-radius: 2px;
+  border: none;
+  color: #e3e3e3;
+  padding: 10px 30px 10px 10px;
+  // disable default appearance
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  &::-ms-expand { display: none };
+}
+
+// remove dotted firefox border
+@-moz-document url-prefix() {
+  select {
+    color: rgba(0,0,0,0);
+    text-shadow: 0 0 0 #ffffff;
+  }
+}
+
+.custom-select::after {
+  content: '\25BC';
+  position: relative;
+  background-color: inherit;
+  transition: .25s all ease;
+  pointer-events: inherit;
 }
 
 hr.dashed {
