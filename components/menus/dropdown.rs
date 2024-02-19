@@ -11,13 +11,13 @@ use crate::menus::common::ItemProps;
 pub fn dropdown(ItemProps {items}: &ItemProps) -> Html {
     let is_open = use_state(|| false);
     // default to the first item in the vector
-    let selected_item = use_state(|| items[0].display_name.clone());
+    let selected_item = use_state(|| items[0].clone());
 
     let onclick = {
         let is_open = is_open.clone();
         Callback::from(move | e: MouseEvent | {
             e.stop_propagation();
-            is_open.set(!*is_open)
+            is_open.set(!*is_open);
         })
     };
 
@@ -50,7 +50,7 @@ pub fn dropdown(ItemProps {items}: &ItemProps) -> Html {
 
     html! {
         <div class="dropdown">
-          <button class="link" onclick={onclick}>{selected_item.to_string()}</button>
+          <button class="link" onclick={onclick}>{selected_item.display_name.to_string()}</button>
           <div class="dropdown-menu">
             {items_html}
           </div>

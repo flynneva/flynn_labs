@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 
-#[derive(Properties, PartialEq)]
+#[derive(Debug, Clone, Properties, PartialEq)]
 pub struct Item {
     pub display_name: String,
     pub html: Html,
