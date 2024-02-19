@@ -8,6 +8,8 @@ rust_library(
         "@crates//:yew",
         "@crates//:yew-router",
         "@crates//:ncaa_data_rs",
+        "@crates//:gloo",
+        "@crates//:wasm-bindgen",
     ],
     visibility = ["//visibility:public"],
 )

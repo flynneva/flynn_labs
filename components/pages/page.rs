@@ -17,7 +17,7 @@ pub struct PagesListProps {
 pub fn pages_list(PagesListProps {pages}: &PagesListProps) -> Html {
     pages.iter().map(|page| html! {
         <div class="card" key={page.id}>
-          <a href={format!("{}", page.url)}>
+          <a class="link" href={format!("{}", page.url)}>
             <div class="container">
               <h1>{format!("{}", page.title)}</h1>
               <p>{format!("{}", page.description)}</p>

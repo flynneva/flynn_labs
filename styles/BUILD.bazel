@@ -1,8 +1,8 @@
 
 filegroup(
     name = "styles",
-    srcs = [
-        "styles.scss",
-    ],
+    srcs = glob([
+        "*.scss",
+    ]),
     visibility = ["//visibility:public"],
 )

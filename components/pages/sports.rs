@@ -6,42 +6,14 @@ use ncaa_data_rs::ncaa::structs::{
     sports::Sport
 };
 
-#[derive(Properties, PartialEq)]
-pub struct SportsMenuProps {
-    pub sports: Vec<Sport>,
-}
+use crate::menus::sports_nav_bar::SportsNavBar;
 
-#[function_component(SportsSelector)]
-pub fn sports_selector(SportsMenuProps {sports}: &SportsMenuProps) -> Html {
-    let sport_options: Vec<_> = sports.iter().enumerate().map(|(id, sport)| html! {
-        <option id={format!("{}", &id)}>{&sport.name}</option>
-    }).collect();
-
-    html! {
-        <div class="custom-select">
-            <select>
-                {sport_options}
-            </select>
-        </div>
-    }
-}
-
-#[function_component(SportsBottomMenu)]
-pub fn sports_bottom_menu() -> Html {
-    let sports = supported_sports();
-
-    html! {
-        <div>
-          <SportsSelector sports={sports} />
-        </div>
-    }
-}
 
 #[function_component(SportsPage)]
 pub fn sports() -> Html {
     html! {
         <div>
-            <SportsBottomMenu />
+            <SportsNavBar />
         </div>
     }
 }
