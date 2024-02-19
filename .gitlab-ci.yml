@@ -1,0 +1,21 @@
+stages:
+  - Build and Test
+  - Deploy
+
+build-test:
+  stage: Build and Test
+  image:
+    name: gcr.io/bazel-public/bazel:7.0.2
+    entrypoint: [""]
+  script:
+    - cd ${CI_PROJECT_DIR}
+    - bazel build //...
+    - bazel test //...
+  artifacts:
+    paths:
+      - bazel-bin/
+  cache:
+    key:
+      files:
+        - .bazelversion
+        - MODULE.bazel
