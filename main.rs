@@ -2,7 +2,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 
 use components::pages::{
-    AppRoute,
+    Route,
     home::HomePage,
     sports::SportsPage,
     robots::RobotsPage,
@@ -11,13 +11,13 @@ use components::pages::{
 };
 
 
-fn switch(routes: AppRoute) -> Html {
+fn switch(routes: Route) -> Html {
   match routes {
-    AppRoute::Home => html! { <HomePage /> },
-    AppRoute::Sports { sport, variation, division } => html! { <SportsPage sport={sport} variation={variation} division={division} /> },
-    AppRoute::Robots => html! { <RobotsPage /> },
-    AppRoute::Garden => html! { <GardenPage /> },
-    AppRoute::NotFound => html! { <NotFoundPage /> },
+    Route::Home => html! { <HomePage /> },
+    Route::Sports { sport, variation, division } => html! { <SportsPage sport={sport} variation={variation} division={division} /> },
+    Route::Robots => html! { <RobotsPage /> },
+    Route::Garden => html! { <GardenPage /> },
+    Route::NotFound => html! { <NotFoundPage /> },
   }
 }
 
@@ -26,7 +26,7 @@ fn App() -> Html {
     html! {
         <>
           <BrowserRouter>
-            <Switch <AppRoute> render={switch} />
+            <Switch <Route> render={switch} />
           </BrowserRouter>
         </>
     }

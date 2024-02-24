@@ -9,7 +9,7 @@ pub mod not_found;
 pub mod page;
 
 #[derive(Debug, Clone, PartialEq, Routable)]
-pub enum AppRoute {
+pub enum Route {
   #[at("/")]
   Home,
   #[at("/sports/:sport/:variation/:division")]
@@ -22,4 +22,4 @@ pub enum AppRoute {
   NotFound,
 }
 
-pub type AppLink = Link<AppRoute>;
+pub type AppLink = Link<Route>;

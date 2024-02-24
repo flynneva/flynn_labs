@@ -7,7 +7,7 @@ use ncaa_data_rs::ncaa::structs::{
     sports::Sport,
 };
 
-use crate::pages::AppRoute;
+use crate::pages::Route;
 use crate::menus::nav_bar::NavBar;
 use crate::menus::dropdown::MenuDropdown;
 use crate::menus::common::Item;
@@ -67,7 +67,7 @@ pub fn sports_nav_bar(props: &Props) -> Html {
                 let onclick = Callback::from({
                     let sanitized_variation = sanitized_variation.clone();
                     let on_variation_select = props.on_variation_select.clone();
-                    move |_| { on_variation_select.emit(sanitized_variation.trim_matches('-').to_string().clone())}
+                    move |_| { on_variation_select.emit(sanitized_variation.clone())}
                 });
                 Item{
                     display_name: sanitized_variation.to_string(),
@@ -77,7 +77,7 @@ pub fn sports_nav_bar(props: &Props) -> Html {
     let mut nav_buttons: Vec<_> = vec![
         Item{
             display_name: "Sport selector".to_string(),
-            html: html! {<MenuDropdown items={sport_options} />}
+            html: html! {<MenuDropdown key={"sport_selector".to_string()} items={sport_options} />}
         }
     ];
 
@@ -85,7 +85,7 @@ pub fn sports_nav_bar(props: &Props) -> Html {
         nav_buttons.push(
             Item{
                 display_name: "Variation selector".to_string(),
-                html: html! {<MenuDropdown items={variation_options} />},
+                html: html! {<MenuDropdown key={"variation_selector".to_string()} items={variation_options} />},
             }
         );
     };
@@ -93,7 +93,7 @@ pub fn sports_nav_bar(props: &Props) -> Html {
     nav_buttons.push(
         Item{
             display_name: "Division selector".to_string(),
-            html: html! {<MenuDropdown items={division_options} />},
+            html: html! {<MenuDropdown key={"division_selector".to_string()} items={division_options} />},
         }
     );
 
