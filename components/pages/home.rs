@@ -4,15 +4,15 @@ use yew::Html;
 
 use crate::pages::page::*;
 
-#[function_component(HomePage)]
-pub fn home_page() -> Html {
+#[function_component]
+pub fn HomePage() -> Html {
 
     let pages= vec![
         Page {
             id: 1,
             title: "Sports".to_string(),
             description: "Things about sports".to_string(),
-            url: "/sports".to_string(),
+            url: "/sports/basketball/men/d1".to_string(),
         },
         Page {
             id: 2,

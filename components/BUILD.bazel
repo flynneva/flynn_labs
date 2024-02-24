@@ -7,6 +7,7 @@ rust_library(
     deps = [
         "@crates//:yew",
         "@crates//:yew-router",
+        "@crates//:yew-hooks",
         "@crates//:ncaa_data_rs",
         "@crates//:gloo",
         "@crates//:wasm-bindgen",

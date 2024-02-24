@@ -14,15 +14,15 @@ use components::pages::{
 fn switch(routes: AppRoute) -> Html {
   match routes {
     AppRoute::Home => html! { <HomePage /> },
-    AppRoute::Sports => html! { <SportsPage /> },
+    AppRoute::Sports { sport, variation, division } => html! { <SportsPage sport={sport} variation={variation} division={division} /> },
     AppRoute::Robots => html! { <RobotsPage /> },
     AppRoute::Garden => html! { <GardenPage /> },
     AppRoute::NotFound => html! { <NotFoundPage /> },
   }
 }
 
-#[function_component(App)]
-fn app() -> Html {
+#[function_component]
+fn App() -> Html {
     html! {
         <>
           <BrowserRouter>

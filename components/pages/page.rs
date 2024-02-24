@@ -13,8 +13,8 @@ pub struct PagesListProps {
     pub pages: Vec<Page>,
 }
 
-#[function_component(PagesList)]
-pub fn pages_list(PagesListProps {pages}: &PagesListProps) -> Html {
+#[function_component]
+pub fn PagesList(PagesListProps {pages}: &PagesListProps) -> Html {
     pages.iter().map(|page| html! {
         <div class="card" key={page.id}>
           <a class="link" href={format!("{}", page.url)}>

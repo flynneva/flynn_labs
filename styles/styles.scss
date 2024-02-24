@@ -77,15 +77,14 @@ hr.solid {
   font-size: 20px;
 }
 
-.dropdown-menu {
+.dropdown > .dropdown-menu {
   position: absolute;
   left: 0;
   bottom: calc(100% - 0.25rem);
   background-color: #010101;
   padding: .75rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .15);
-  opacity: 0;
-  pointer-events: none;
+  visibility: hidden;
   transform: translateY(10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
   font-size: 16px;
@@ -96,10 +95,10 @@ hr.solid {
   padding: 5px;
 }
 
-.dropdown > .link:focus + .dropdown-menu {
-  opacity: 1;
-  transform: translateY(-10px);
-  pointer-events: auto;
+.dropdown:focus-within > .dropdown-menu {
+  transform: translateY(-8px);
+  visibility: visible;
+  display: block;
 }
 
 .nav-bar {

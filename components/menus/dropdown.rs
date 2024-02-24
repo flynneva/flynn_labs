@@ -7,8 +7,8 @@ use gloo::utils::document;
 use crate::menus::common::ItemProps;
 
 
-#[function_component(MenuDropdown)]
-pub fn dropdown(ItemProps {items}: &ItemProps) -> Html {
+#[function_component]
+pub fn MenuDropdown(ItemProps {items}: &ItemProps) -> Html {
     let is_open = use_state(|| false);
     // default to the first item in the vector
     let selected_item = use_state(|| items[0].clone());

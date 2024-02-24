@@ -1,8 +1,7 @@
 use yew::prelude::*;
 
-#[function_component(RobotsPage)]
-pub fn robots() -> Html {
-    
+#[function_component]
+pub fn RobotsPage() -> Html {
     html! {
         <div>
             <h1>{ "Robots" }</h1>

@@ -5,8 +5,8 @@ use yew::Html;
 use crate::menus::common::ItemProps;
 
 
-#[function_component(NavBar)]
-pub fn nav_bar(ItemProps {items}: &ItemProps) -> Html {
+#[function_component]
+pub fn NavBar(ItemProps {items}: &ItemProps) -> Html {
     let nav_bar_html: Vec<_> = items.iter().map(|item|
         html! {item.html.clone()}
     ).collect();

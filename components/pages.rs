@@ -12,8 +12,8 @@ pub mod page;
 pub enum AppRoute {
   #[at("/")]
   Home,
-  #[at("/sports")]
-  Sports,
+  #[at("/sports/:sport/:variation/:division")]
+  Sports {sport: String, variation: String, division: String},
   #[at("/robots")]
   Robots,
   #[at("/garden")]
