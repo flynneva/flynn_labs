@@ -12,8 +12,10 @@ gloo-events = "0.1.2"
 gloo-utils = "0.1.4"
 gloo = "0.11.0"
 wasm-bindgen = "0.2.91"
+wasm-bindgen-futures = "0.4.41"
 # hello_lib = { path = "../hello_lib" }
-ncaa_data_rs = "0.1.3"
+ncaa_data_rs = { version = "0.1.5", features = ["proxy"] }
+chrono = "0.4"
 
 [lib]
 name = "components"

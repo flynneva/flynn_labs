@@ -1,5 +1,4 @@
 use yew::prelude::*;
-use yew_router::prelude::use_navigator;
 
 // use ncaa_data_rs::ncaa::query;
 use ncaa_data_rs::ncaa::structs::{
@@ -7,7 +6,6 @@ use ncaa_data_rs::ncaa::structs::{
     sports::Sport,
 };
 
-use crate::pages::Route;
 use crate::menus::nav_bar::NavBar;
 use crate::menus::dropdown::MenuDropdown;
 use crate::menus::common::Item;
@@ -22,7 +20,6 @@ pub struct Props {
 
 #[function_component(SportsNavBar)]
 pub fn sports_nav_bar(props: &Props) -> Html {
-    let navigator = use_navigator().unwrap();
     let sports: Vec<Sport> = supported_sports();
     // Track the currently selected items
     let active_sport = use_state(|| sports[0].clone());

@@ -11,6 +11,8 @@ rust_library(
         "@crates//:ncaa_data_rs",
         "@crates//:gloo",
         "@crates//:wasm-bindgen",
+        "@crates//:wasm-bindgen-futures",
+        "@crates//:chrono",
     ],
     visibility = ["//visibility:public"],
 )
