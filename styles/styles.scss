@@ -43,12 +43,40 @@ body {
 }
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     transition: 0.3s;
 }
 
+.scoreboard-card {
+  float: left;
+  width: 35%;
+  max-width: 400px;
+  min-width:300px;
+  padding: 0 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  transition: 0.3s;
+  text-align: center;
+  line-height: 5px;
+}
+
+.scoreboard-team-container {
+  float: left;
+  width: 50%;
+  padding: 0 0px;
+}
+
+.scoreboard-clock {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  text-align: cneter;
+}
+
+.scoreboard-card:hover,
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    color: #777;
 }
 
 .container {
@@ -107,4 +135,12 @@ hr.solid {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.home {
+  text-align: left;
+}
+
+.away {
+  text-align: right;
 }

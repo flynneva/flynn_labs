@@ -1,4 +1,5 @@
 use chrono::Utc;
+use chrono_tz::US::Eastern;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -6,6 +7,10 @@ use yew_router::prelude::*;
 use crate::pages::Route;
 use crate::menus::sports_nav_bar::{
     SportsNavBar,
+};
+use crate::cards::game::{
+    GameCard,
+    GameProps,
 };
 
 use ncaa_data_rs::ncaa::structs::scoreboard::Scoreboard;
@@ -130,7 +135,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
         (&*active_sport.name).to_string()
     };
 
-    let current_date = Utc::now();
+    let current_date = Utc::now().with_timezone(&Eastern);
     let formatted_date = active_sport.get_date_str(current_date);
 
     {
@@ -138,7 +143,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
         let sport_with_variation = sport_with_variation.clone();
         let active_division = active_division.clone();
         let formatted_date = formatted_date.clone();
-        use_effect_with((), move |_| {
+        use_effect_with((sport_with_variation.clone(), active_division.clone(), formatted_date.clone()), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
                 match query::scoreboard(&sport_with_variation, &*active_division, &formatted_date.unwrap()).await {
                     Ok(scoreboard) => {
@@ -156,15 +161,27 @@ pub fn SportsPage(props: &SportProps) -> Html {
         })});
     }
     let games: Vec<_> = active_scoreboard.games.iter().map(|game| {
-        html! { <p>{game.game.game_id.clone()}</p> }
+        html! {
+            <GameCard
+                id={game.details.url.clone()}
+                home_name={game.details.home.names.char6.clone()}
+                away_name={game.details.away.names.char6.clone()}
+                current_clock={game.details.contest_clock.clone()}
+                current_period={game.details.current_period.clone()}
+                home_score={game.details.home.score.as_str().unwrap_or_default().to_string().clone()}
+                home_record={game.details.home.description.clone()}
+                home_rank={game.details.home.rank.clone()}
+                away_score={game.details.away.score.as_str().unwrap_or_default().to_string().clone()}
+                away_record={game.details.away.description.clone()}
+                away_rank={game.details.away.rank.clone()}
+                start_time={game.details.start_time.clone()}
+            />
+        }
     }).collect();
 
     html! {
         <div>
-            <p>{&*active_sport.name.clone()}</p>
-            <p>{&*active_variation.clone()}</p>
-            <p>{&*active_division.clone()}</p>
-            <div>
+            <div class="container">
               {games}
             </div>
             <SportsNavBar {on_sport_select} {on_variation_select} {on_division_select} />
