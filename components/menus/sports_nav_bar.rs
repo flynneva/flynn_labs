@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 // use ncaa_data_rs::ncaa::query;
-use ncaa_data_rs::ncaa::structs::{
+use ncaa_data_rs::ncaa::{
     sports::supported_sports,
     sports::Sport,
 };

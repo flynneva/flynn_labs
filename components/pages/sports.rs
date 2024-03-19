@@ -10,12 +10,11 @@ use crate::menus::sports_nav_bar::{
 };
 use crate::cards::game::{
     GameCard,
-    GameProps,
 };
 
-use ncaa_data_rs::ncaa::structs::scoreboard::Scoreboard;
-use ncaa_data_rs::ncaa::structs::sports::Sport;
-use ncaa_data_rs::ncaa::structs::sports::supported_sports;
+use ncaa_data_rs::ncaa::scoreboard::Scoreboard;
+use ncaa_data_rs::ncaa::sports::Sport;
+use ncaa_data_rs::ncaa::sports::supported_sports;
 use ncaa_data_rs::ncaa::query;
 
 #[derive(Properties, PartialEq)]

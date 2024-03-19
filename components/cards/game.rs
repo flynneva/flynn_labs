@@ -1,17 +1,5 @@
-use chrono::Utc;
 
 use yew::prelude::*;
-use yew_router::prelude::*;
-
-use crate::pages::Route;
-use crate::menus::sports_nav_bar::{
-    SportsNavBar,
-};
-
-use ncaa_data_rs::ncaa::structs::scoreboard::Scoreboard;
-use ncaa_data_rs::ncaa::structs::sports::Sport;
-use ncaa_data_rs::ncaa::structs::sports::supported_sports;
-use ncaa_data_rs::ncaa::query;
 
 #[derive(Properties, PartialEq)]
 pub struct GameProps {
