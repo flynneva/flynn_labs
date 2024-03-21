@@ -37,10 +37,10 @@ pub fn GamePage(props: &GameProps) -> Html {
             &teams[1]
         };
         // Determine which team this is (home or away)
-        let home_or_away: String = if (
+        let home_or_away: String = if
             team.home_team.is_string() &&
             team.home_team.as_str().unwrap().to_string() == "true"
-        ) {
+        {
             "home".to_string()
         } else {
             "away".to_string()

@@ -1,10 +1,13 @@
-use chrono::Utc;
-use chrono_tz::US::Eastern;
+use chrono::{Datelike, DateTime, FixedOffset};
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::pages::Route;
+use crate::pages::{
+    Route,
+    DATE_FMT,
+};
+
 use crate::menus::sports_nav_bar::{
     SportsNavBar,
 };
@@ -22,16 +25,19 @@ pub struct SportProps {
     pub sport: String,
     pub variation: String,
     pub division: String,
+    pub date: DateTime<FixedOffset>,
 }
 
 #[function_component]
 pub fn SportsPage(props: &SportProps) -> Html {
     let navigator = use_navigator().unwrap();
+    let location = use_location();
     let sports: Vec<Sport> = supported_sports();
     // Track the currently selected items
     let active_sport = use_state(|| sports[0].clone());
     let active_variation = use_state(|| "men".to_string());
     let active_division = use_state(|| "d1".to_string());
+    let active_date = use_state(|| props.date);
     let fetch_new_games = use_state(|| false);
 
     let active_scoreboard = use_state(|| Scoreboard{
@@ -45,6 +51,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
         let active_sport = active_sport.clone();
         let active_variation = active_variation.clone();
         let active_division = active_division.clone();
+        let active_date = active_date.clone();
         let navigator = navigator.clone();
         let sports = sports.clone();
         let fetch_new_games = fetch_new_games.clone();
@@ -80,6 +87,9 @@ pub fn SportsPage(props: &SportProps) -> Html {
                         sport: sport.name.to_string().clone(),
                         variation: variation.to_string(),
                         division: division.to_string(),
+                        year: active_date.year(),
+                        month: active_date.month(),
+                        day: active_date.day(),
                     });
                 }
             }
@@ -91,6 +101,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
         let active_variation = active_variation.clone();
         let active_sport = active_sport.clone();
         let active_division = active_division.clone();
+        let active_date = active_date.clone();
         let navigator = navigator.clone();
         move |variation_name: String| {
             if let Some(variations) = &active_sport.variations {
@@ -101,6 +112,9 @@ pub fn SportsPage(props: &SportProps) -> Html {
                             sport: active_sport.name.to_string().clone(),
                             variation: variation_name.to_string(),
                             division: active_division.to_string(),
+                            year: active_date.year(),
+                            month: active_date.month(),
+                            day: active_date.day(),
                         });
                     }
                 }
@@ -113,6 +127,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
         let active_variation = active_variation.clone();
         let active_sport = active_sport.clone();
         let active_division = active_division.clone();
+        let active_date = active_date.clone();
         let navigator = navigator.clone();
         move |division: String| {
             if active_sport.divisions.contains(&division) {
@@ -124,6 +139,9 @@ pub fn SportsPage(props: &SportProps) -> Html {
                 sport: active_sport.name.to_string().clone(),
                 variation: active_variation.to_string(),
                 division: division.to_string(),
+                year: active_date.year(),
+                month: active_date.month(),
+                day: active_date.day(),
             });
         }
     });
@@ -134,8 +152,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
         (&*active_sport.name).to_string()
     };
 
-    let current_date = Utc::now().with_timezone(&Eastern);
-    let formatted_date = active_sport.get_date_str(current_date);
+    let formatted_date = active_sport.get_date_str(*active_date);
 
     {
         let active_scoreboard = active_scoreboard.clone();

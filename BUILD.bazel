@@ -8,6 +8,7 @@ rust_binary(
         "//components",
         "@crates//:yew",
         "@crates//:yew-router",
+        "@crates//:chrono",
     ]
 )
 

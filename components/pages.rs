@@ -9,19 +9,22 @@ pub mod garden;
 pub mod not_found;
 pub mod page;
 
+pub const DATE_FMT: &str = "%Y/%m/%d";
+
 #[derive(Debug, Clone, PartialEq, Routable)]
 pub enum Route {
   #[at("/")]
   Home,
-  #[at("/sports/:sport/:variation/:division")]
-  Sports {sport: String, variation: String, division: String},
+  #[at("/sports/:sport/:variation/:division/:year/:month/:day")]
+  Sports {sport: String, variation: String, division: String, year: i32, month: u32, day: u32},
   #[at("/sports/game/:id")]
   Game {id: String},
   #[at("/robots")]
   Robots,
   #[at("/garden")]
   Garden,
-  #[at("/*")]
+  #[not_found]
+  #[at("/404")]
   NotFound,
 }
 
