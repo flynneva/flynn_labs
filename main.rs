@@ -4,7 +4,6 @@ use yew_router::prelude::*;
 
 use components::pages::{
     Route,
-    DATE_FMT,
     home::HomePage,
     sports::SportsPage,
     game::GamePage,

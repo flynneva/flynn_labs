@@ -23,12 +23,12 @@ pub fn sports_nav_bar(props: &Props) -> Html {
     let sports: Vec<Sport> = supported_sports();
     // Track the currently selected items
     let active_sport = use_state(|| sports[0].clone());
-    let active_variation = use_state(|| "men".to_string());
-    let active_division = use_state(|| "d1".to_string());
+    // let active_variation = use_state(|| "men".to_string());
+    // let active_division = use_state(|| "d1".to_string());
     // TODO: should this be its own fn?
     // Generate all the sports to select
     let mut sport_options: Vec<_> = vec![];
-    for (id, sport) in sports.iter().enumerate() {
+    for (_, sport) in sports.iter().enumerate() {
         let onclick = Callback::from({
             let sport = sport.clone();
             let on_sport_select = props.on_sport_select.clone();

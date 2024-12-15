@@ -1,7 +1,12 @@
+[build]
+release = true
+dist = "dist"
+public_url = "/flynn_labs/"
+minify = "always"
+
 [serve]
 address = "127.0.0.24"
 port = 8888
-
 
 [[proxy]]
 rewrite = "/ncaa_api"

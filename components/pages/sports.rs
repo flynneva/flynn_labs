@@ -5,7 +5,6 @@ use yew_router::prelude::*;
 
 use crate::pages::{
     Route,
-    DATE_FMT,
 };
 
 use crate::menus::sports_nav_bar::{
@@ -31,7 +30,6 @@ pub struct SportProps {
 #[function_component]
 pub fn SportsPage(props: &SportProps) -> Html {
     let navigator = use_navigator().unwrap();
-    let location = use_location();
     let sports: Vec<Sport> = supported_sports();
     // Track the currently selected items
     let active_sport = use_state(|| sports[0].clone());

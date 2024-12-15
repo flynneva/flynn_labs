@@ -1,0 +1,89 @@
+name: Build/Test
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# only run one build doc workflow at a time, cancel any running ones
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_test_non_default:
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+        version:
+          # Non-default ubunut versions that are supported
+          - 20.04
+          - 22.04
+    runs-on: ${{ matrix.os }}-${{ matrix.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Specify the Bazel cache
+        uses: actions/cache@v3
+        with:
+          path: "/home/runner/.cache/bazel"
+          key: ${{ hashFiles('.bazelrc', '.bazelversion', 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel') }}
+      - name: Build
+        run: bazel build //...
+      # - name: Test
+      #   run: bazel test //...
+      - name: Store the bazel-testlogs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: ${{ matrix.os }}-${{ matrix.version }}-bazel-testlogs
+          path: bazel-testlogs
+          retention-days: 5
+  build_test_default:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Specify the Bazel cache
+        uses: actions/cache@v4
+        with:
+          path: "/home/runner/.cache/bazel"
+          key: ${{ hashFiles('.bazelrc', '.bazelversion', 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel') }}
+      - name: Build
+        run: bazel build //...
+      # - name: Test
+      #   run: bazel test //...
+      - name: Store the bazel-testlogs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: default-bazel-testlogs
+          path: bazel-testlogs
+          retention-days: 5
+  deploy:
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/main'
+    needs: build_test_default
+    steps:
+      - uses: actions/checkout@v4
+      # TODO: switch to use Bazel + rules_rust + trunk after
+      # https://github.com/bazelbuild/rules_rust/issues/3110
+      - name: Setup rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install trunk
+        run: |
+          rustup target add wasm32-unknown-unknown
+          cargo update
+          cargo install trunk
+      - name: Build site
+        run: trunk build --release
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # deploy dist folder
