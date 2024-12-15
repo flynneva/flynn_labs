@@ -1,8 +1,0 @@
-[serve]
-address = "127.0.0.24"
-port = 8888
-
-
-[[proxy]]
-rewrite = "/ncaa_api"
-backend = "http://data.ncaa.com/"

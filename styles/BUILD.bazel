@@ -1,8 +1,0 @@
-
-filegroup(
-    name = "styles",
-    srcs = glob([
-        "*.scss",
-    ]),
-    visibility = ["//visibility:public"],
-)
