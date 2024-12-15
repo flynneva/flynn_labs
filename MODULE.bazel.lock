@@ -1825,7 +1825,7 @@
       "general": {
         "bzlTransitiveDigest": "XPQ1wWKsGsk0+D+e5eoBVz32h+COn9oA9q6yS3QSNpA=",
         "accumulatedFileDigests": {
-          "@@rules_rust~0.38.0~cargo_bazel_bootstrap~cargo_bazel_bootstrap//:cargo-bazel": "cbc798abee369aff6999db0198324911e96435e7a9af35930d6f5fd9020860db",
+          "@@rules_rust~0.38.0~cargo_bazel_bootstrap~cargo_bazel_bootstrap//:cargo-bazel": "03e0e0770f16d1971533ae052a0593ab01104b95d652292bafddb4e03252b30d",
           "@@rules_rust~0.38.0~rust~rust_host_tools//:bin/cargo": "b30a9fc475de8b03077f5947e0a20ea59af47733724af215cabd0a72e3722446",
           "@@//:Cargo.lock": "c8e7914606812bf83a835a0ea83dbba74e75bf12ceba94db9efb4eab43d09609",
           "@@rules_rust~0.38.0~rust~rust_host_tools//:bin/rustc": "7cd1c64771117a00efd8eb5113e2aed512545441c23436f6923e5deb8c97016c",
