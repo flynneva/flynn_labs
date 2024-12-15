@@ -12,16 +12,19 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
-      - name: Authenticate with Google Cloud
-        id: 'auth'
-        uses: 'google-github-actions/auth@v1'
+      - name: Specify the Bazel cache
+        uses: actions/cache@v3
         with:
-          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
-          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
+          path: "/home/runner/.cache/bazel"
+          key: ${{ hashFiles('.bazelrc', '.bazelversion', 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel') }}
+      - name: Build
+        run: bazel build //...
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
-          project_id: '${{ env.PROJECT_ID }}'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./bazel-flynn_labs/dist # deploy src folder
