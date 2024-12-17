@@ -15,19 +15,19 @@ pub fn HomePage() -> Html {
             id: 1,
             title: "Sports".to_string(),
             description: "Things about sports".to_string(),
-            url: format!("/sports/basketball/men/d1/{}", current_date_str),
+            url: format!("sports/basketball/men/d1/{}", current_date_str),
         },
         Page {
             id: 2,
             title: "Robots".to_string(),
             description: "Things about robots".to_string(),
-            url: "/robots".to_string(),
+            url: "robots".to_string(),
         },
         Page {
             id: 3,
             title: "Garden".to_string(),
             description: "Things that grow".to_string(),
-            url: "/garden".to_string(),
+            url: "garden".to_string(),
         },
         
     ];

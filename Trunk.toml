@@ -1,7 +1,7 @@
 [build]
 release = true
 dist = "dist"
-public_url = "/flynn_labs/"
+public_url = "/flynn_labs"
 minify = "always"
 
 [serve]

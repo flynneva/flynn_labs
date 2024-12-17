@@ -21,7 +21,7 @@ pub struct GameProps {
 pub fn GameCard(props: &GameProps) -> Html {
 
     html! {
-        <a class="link" href={format!("/sports{}", props.id.clone())}>
+        <a class="link" href={format!("sports{}", props.id.clone())}>
             <div class="scoreboard-card" id={props.id.clone()}>
     
                 <div class="scoreboard-team-container home">
