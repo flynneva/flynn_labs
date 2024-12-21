@@ -27,5 +27,3 @@ pub enum Route {
   #[at("/404")]
   NotFound,
 }
-
-pub type AppLink = Link<Route>;
