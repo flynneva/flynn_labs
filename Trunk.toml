@@ -1,13 +1,13 @@
 [build]
+target = "index.html"
 release = true
 dist = "dist"
-public_url = "/flynn_labs"
 minify = "always"
+public_url = "/"
 
 [serve]
-address = "127.0.0.24"
-port = 8888
+addresses = [ "127.0.0.24" ]
+port = 8080
+aliases = ["https://www.flynnlabs.dev"]
+open = true
 
-[[proxy]]
-rewrite = "/ncaa_api"
-backend = "https://data.ncaa.com/"
