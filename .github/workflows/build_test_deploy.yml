@@ -82,6 +82,8 @@ jobs:
           cargo install trunk
       - name: Build site
         run: trunk build --release
+      - name: Copy CNAME to dist
+        run: cp ./CNAME ./dist/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
