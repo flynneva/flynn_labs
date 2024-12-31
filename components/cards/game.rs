@@ -24,22 +24,47 @@ pub struct GameProps {
 pub fn GameCard(props: &GameProps) -> Html {
 
     let game_id = props.id.rsplit_once("/").unwrap().1;
+    let game_clock = if props.current_clock.is_empty() {
+        html!{
+            <div class="scoreboard-gameclock">
+              <p>{props.start_time.clone()}</p>
+            </div>
+        }
+    } else {
+        if props.current_period == "FINAL" {
+            html! {
+              <div class="scoreboard-gameclock">
+                <p>{props.current_period.clone()}</p>
+              </div>
+            }
+        } else {
+            html!{
+                <div class="scoreboard-gameclock">
+                  <p>{props.current_period.clone()}</p>
+                  <p>{props.current_clock.clone()}</p>
+                </div>
+            }
+        }
+    };
 
     html! {
         <Link<Route> classes="link" to={Route::Game { id: game_id.to_string().clone() }}>
             <div class="scoreboard-card" id={props.id.clone()}>
-    
                 <div class="scoreboard-team-container home">
-                    <h5>{props.home_name.clone()}</h5>
-                    <p>{props.home_record.clone()}</p>
+                    <div class="scoreboard-team-details">
+                      <h5>{props.home_name.clone()}</h5>
+                      <p>{props.home_record.clone()}</p>
+                    </div>
                     <h4>{props.home_score.clone()}</h4>
                 </div>
                 <div class="scoreboard-team-container away">
-                    <h5>{props.away_name.clone()}</h5>
-                    <p>{props.away_record.clone()}</p>
+                    <div class="scoreboard-team-details">
+                      <h5>{props.away_name.clone()}</h5>
+                      <p>{props.away_record.clone()}</p>
+                    </div>
                     <h4>{props.away_score.clone()}</h4>
                 </div>
-                <p>{props.start_time.clone()}</p>
+                {game_clock.clone()}
             </div>
         </Link<Route>>
     }

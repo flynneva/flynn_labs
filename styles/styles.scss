@@ -48,16 +48,17 @@ body {
 }
 
 .scoreboard-card {
+  position: relative;
   float: left;
   width: 35%;
-  max-width: 400px;
-  min-width:300px;
+  max-width: 300px;
+  min-width:250px;
   padding: 0 10px;
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
   transition: 0.3s;
   text-align: center;
-  line-height: 5px;
+  line-height: 4px;
 }
 
 .scoreboard-team-container {
@@ -66,11 +67,21 @@ body {
   padding: 0 0px;
 }
 
-.scoreboard-clock {
-  position: relative;
+.scoreboard-team-details h5 {
+  margin-bottom: 0px;
+}
+
+.scoreboard-team-details p {
+  font-size: 0.8rem;
+}
+
+.scoreboard-gameclock {
+  font-size: 0.85rem;
+  position: absolute;
   top: 50%;
   left: 50%;
-  text-align: cneter;
+  margin: 0;
+  transform: translate(-50%, -50%);
 }
 
 .scoreboard-card:hover,
