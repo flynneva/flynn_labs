@@ -2,7 +2,7 @@
 filegroup(
     name = "styles",
     srcs = glob([
-        "*.scss",
+        "*.css",
     ]),
     visibility = ["//visibility:public"],
 )
