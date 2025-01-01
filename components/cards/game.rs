@@ -37,6 +37,12 @@ pub fn GameCard(props: &GameProps) -> Html {
                 <p>{props.current_period.clone()}</p>
               </div>
             }
+        } else if props.current_clock == ":00" {
+            html! {
+                <div class="scoreboard-gameclock">
+                  <p>{"HALFTIME"}</p>
+                </div>
+            }
         } else {
             html!{
                 <div class="scoreboard-gameclock">
@@ -51,18 +57,19 @@ pub fn GameCard(props: &GameProps) -> Html {
         <Link<Route> classes="link" to={Route::Game { id: game_id.to_string().clone() }}>
             <div class="scoreboard-card" id={props.id.clone()}>
                 <div class="scoreboard-team-container home">
+                    <h4>{props.home_score.clone()}</h4>
                     <div class="scoreboard-team-details">
                       <h5>{props.home_name.clone()}</h5>
                       <p>{props.home_record.clone()}</p>
                     </div>
-                    <h4>{props.home_score.clone()}</h4>
+                    
                 </div>
                 <div class="scoreboard-team-container away">
+                    <h4>{props.away_score.clone()}</h4>
                     <div class="scoreboard-team-details">
                       <h5>{props.away_name.clone()}</h5>
                       <p>{props.away_record.clone()}</p>
                     </div>
-                    <h4>{props.away_score.clone()}</h4>
                 </div>
                 {game_clock.clone()}
             </div>

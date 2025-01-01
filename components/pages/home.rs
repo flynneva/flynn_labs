@@ -41,6 +41,9 @@ pub fn HomePage() -> Html {
         <>
             <div class="scroll-container">
                 <h1>{"Flynn Labs"}</h1>
+                <p>{"Welcome to my website!"}</p>
+                <p>{"Here you will find a mix of things that I am interested in enough to actually
+                     write a bit of code about them."}</p>
                 <PagesList pages={pages} />
             </div>
         </>

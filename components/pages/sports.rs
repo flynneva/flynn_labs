@@ -195,7 +195,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
 
     html! {
         <div>
-            <div class="container">
+            <div class="scoreboard-games">
               {games}
             </div>
             <SportsNavBar {on_sport_select} {on_variation_select} {on_division_select} />
