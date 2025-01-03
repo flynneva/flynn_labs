@@ -17,6 +17,7 @@ wasm-bindgen-futures = "0.4.41"
 ncaa_data_rs = { version = "0.2.7", features = [ "proxy" ] }
 chrono = "0.4"
 chrono-tz = "0.8.6"
+charming = {version = "0.4.0", features = [ "wasm" ] }
 
 [lib]
 name = "components"
