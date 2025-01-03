@@ -4,6 +4,13 @@ use ncaa_data_rs::ncaa::query;
 use ncaa_data_rs::ncaa::basketball;
 use basketball::boxscore::Boxscore;
 
+use charming::{
+    component::{Legend, RadarCoordinate, Title},
+    element::{AreaStyle, Tooltip},
+    series::Radar,
+    Chart,
+    WasmRenderer,
+};
 
 #[derive(Properties, PartialEq)]
 pub struct GameProps {
@@ -106,7 +113,7 @@ pub fn GamePage(props: &GameProps) -> Html {
         }
     }).collect();
 
-    let mut advanced_stats: Html = html! {<div>{"No advanced statistics available"}</div>};
+    let advanced_stats: Html = html! {<div id="tempo-free-factors"></div>};
     if team_stats.is_empty() {
         team_stats.push(html! {
                 <div>
@@ -120,33 +127,63 @@ pub fn GamePage(props: &GameProps) -> Html {
             &this_game.teams.as_ref().unwrap()[1].player_totals,
         );
         let meta_teams = &this_game.meta.teams;
-        let mut home_name = &meta_teams[0].short_name;
-        let mut away_name = &meta_teams[1].short_name;
+        let mut meta_home = &meta_teams[0];
+        let mut meta_away = &meta_teams[1];
         if meta_teams[0].id.to_string() != this_game.teams.as_ref().unwrap()[0].id.to_string() {
-            home_name = &meta_teams[1].short_name;
-            away_name = &meta_teams[0].short_name;
+            meta_home = &meta_teams[1];
+            meta_away = &meta_teams[0];
         }
+        let chart_name = format!("{} {} at {} {}",
+            meta_home.short_name.clone().unwrap(),
+            meta_home.nickname.clone().unwrap(),
+            meta_away.short_name.clone().unwrap(),
+            meta_away.nickname.clone().unwrap(),
+        );
+        let chart = Chart::new()
+            .title(Title::new().text(chart_name.clone()))
+            .legend(Legend::new().bottom("10").data(vec![
+                meta_home.short_name.clone().unwrap(),
+                meta_away.short_name.clone().unwrap(),
+            ]))
+            .radar(RadarCoordinate::new().indicator(vec![
+                ("eFG (%)", 0, 100),
+                ("Offensive rebounding (%)", 0, 100),
+                ("Defensive rebounding (%)", 0, 100),
+                ("Free throw factor (FTF)", 0, 100),
+                ("Points per posession (PPP)", 0, 5),
+            ]))
+            .tooltip(Tooltip::new())
+            .series(
+                Radar::new()
+                    .name(chart_name.clone())
+                    .area_style(AreaStyle::new())
+                    .data(vec![
+                        (
+                            vec![
+                                format!("{:.2}", tempo_free_stats.home.efgp),
+                                format!("{:.2}", tempo_free_stats.home.orbp),
+                                format!("{:.2}", tempo_free_stats.home.drbp),
+                                format!("{:.2}", tempo_free_stats.home.ftf),
+                                format!("{:.2}", tempo_free_stats.home.ppp),
+                            ],
+                            meta_home.short_name.clone().unwrap()
+                        ),
+                        (
+                            vec![
+                                format!("{:.2}", tempo_free_stats.away.efgp),
+                                format!("{:.2}", tempo_free_stats.away.orbp),
+                                format!("{:.2}", tempo_free_stats.away.drbp),
+                                format!("{:.2}", tempo_free_stats.away.ftf),
+                                format!("{:.2}", tempo_free_stats.away.ppp),
+                            ],
+                            meta_away.short_name.clone().unwrap()
+                        )
 
-        advanced_stats = html! {
-            <div>
-              <div>
-                <h4>{home_name}</h4>
-                <p>{"eFG percentage: "}{tempo_free_stats.home.efgp}</p>
-                <p>{"Offensive rebounding percentage: "}{tempo_free_stats.home.orbp}</p>
-                <p>{"Defensive rebounding percentage: "}{tempo_free_stats.home.drbp}</p>
-                <p>{"Free throw factor: "}{tempo_free_stats.home.ftf}</p>
-                <p>{"Points per posession: "}{tempo_free_stats.home.ppp}</p>
-              </div>
-              <div>
-                <h4>{away_name}</h4>
-                <p>{"eFG percentage: "}{tempo_free_stats.away.efgp}</p>
-                <p>{"Offensive rebounding percentage: "}{tempo_free_stats.away.orbp}</p>
-                <p>{"Defensive rebounding percentage: "}{tempo_free_stats.away.drbp}</p>
-                <p>{"Free throw factor: "}{tempo_free_stats.away.ftf}</p>
-                <p>{"Points per posession: "}{tempo_free_stats.away.ppp}</p>
-              </div>
-            </div>
-        };
+                    ]));
+    
+        let renderer = WasmRenderer::new(600, 400);
+        
+        renderer.render("tempo-free-factors", &chart).unwrap();
     }
 
     html! {

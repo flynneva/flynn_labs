@@ -13,6 +13,7 @@ rust_library(
         "@crates//:wasm-bindgen",
         "@crates//:wasm-bindgen-futures",
         "@crates//:chrono",
+        "@crates//:charming",
     ],
     visibility = ["//visibility:public"],
 )
