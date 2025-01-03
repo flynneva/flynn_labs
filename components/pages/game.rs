@@ -5,8 +5,8 @@ use ncaa_data_rs::ncaa::basketball;
 use basketball::boxscore::Boxscore;
 
 use charming::{
-    component::{Legend, RadarCoordinate, Title},
-    element::{AreaStyle, Tooltip},
+    component::{Legend, RadarCoordinate, Title, VisualMap},
+    element::{AreaStyle, TextStyle, Tooltip},
     series::Radar,
     Chart,
     WasmRenderer,
@@ -140,46 +140,57 @@ pub fn GamePage(props: &GameProps) -> Html {
             meta_away.nickname.clone().unwrap(),
         );
         let chart = Chart::new()
-            .title(Title::new().text(chart_name.clone()))
-            .legend(Legend::new().bottom("10").data(vec![
-                meta_home.short_name.clone().unwrap(),
-                meta_away.short_name.clone().unwrap(),
-            ]))
-            .radar(RadarCoordinate::new().indicator(vec![
-                ("eFG (%)", 0, 100),
-                ("Offensive rebounding (%)", 0, 100),
-                ("Defensive rebounding (%)", 0, 100),
-                ("Free throw factor (FTF)", 0, 100),
-                ("Points per posession (PPP)", 0, 5),
-            ]))
+            .title(Title::new()
+                .text(chart_name.clone())
+                .text_style(TextStyle::new()
+                    .color("white")))
+            .legend(Legend::new()
+                .bottom("10")
+                .text_style(TextStyle::new()
+                    .color("white"))
+                .data(vec![
+                    meta_home.short_name.clone().unwrap(),
+                    meta_away.short_name.clone().unwrap()]))
+            .radar(RadarCoordinate::new()
+                .indicator(vec![
+                    ("Shooting (eFG %)", 0, 100),
+                    ("Offensive Rebounding (%)", 0, 100),
+                    ("Defensive Rebounding (%)", 0, 100),
+                    ("Free Throw Factor (FTF)", 0, 100),
+                    ("Points-per-posession (PPP)", 0, 5)]))
             .tooltip(Tooltip::new())
-            .series(
-                Radar::new()
-                    .name(chart_name.clone())
-                    .area_style(AreaStyle::new())
-                    .data(vec![
-                        (
-                            vec![
-                                format!("{:.2}", tempo_free_stats.home.efgp),
-                                format!("{:.2}", tempo_free_stats.home.orbp),
-                                format!("{:.2}", tempo_free_stats.home.drbp),
-                                format!("{:.2}", tempo_free_stats.home.ftf),
-                                format!("{:.2}", tempo_free_stats.home.ppp),
-                            ],
-                            meta_home.short_name.clone().unwrap()
-                        ),
-                        (
-                            vec![
-                                format!("{:.2}", tempo_free_stats.away.efgp),
-                                format!("{:.2}", tempo_free_stats.away.orbp),
-                                format!("{:.2}", tempo_free_stats.away.drbp),
-                                format!("{:.2}", tempo_free_stats.away.ftf),
-                                format!("{:.2}", tempo_free_stats.away.ppp),
-                            ],
-                            meta_away.short_name.clone().unwrap()
-                        )
-
-                    ]));
+            .visual_map(VisualMap::new()
+                .show(false)
+                .series_index(0)
+                .color(vec![meta_home.color.clone()]))
+            .visual_map(VisualMap::new()
+                .show(false)
+                .series_index(1)
+                .color(vec![meta_away.color.clone()]))
+            .series(Radar::new()
+                .name("home")
+                .area_style(AreaStyle::new())
+                .data(vec![(
+                    vec![
+                        format!("{:.2}", tempo_free_stats.home.efgp),
+                        format!("{:.2}", tempo_free_stats.home.orbp),
+                        format!("{:.2}", tempo_free_stats.home.drbp),
+                        format!("{:.2}", tempo_free_stats.home.ftf),
+                        format!("{:.2}", tempo_free_stats.home.ppp),
+                    ],
+                    meta_home.short_name.clone().unwrap())]))
+            .series(Radar::new()
+                .name("away")
+                .area_style(AreaStyle::new())
+                .data(vec![(
+                    vec![
+                        format!("{:.2}", tempo_free_stats.away.efgp),
+                        format!("{:.2}", tempo_free_stats.away.orbp),
+                        format!("{:.2}", tempo_free_stats.away.drbp),
+                        format!("{:.2}", tempo_free_stats.away.ftf),
+                        format!("{:.2}", tempo_free_stats.away.ppp),
+                    ],
+                    meta_away.short_name.clone().unwrap())]));
     
         let renderer = WasmRenderer::new(600, 400);
         
