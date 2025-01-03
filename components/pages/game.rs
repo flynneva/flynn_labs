@@ -1,7 +1,8 @@
 use yew::prelude::*;
 
 use ncaa_data_rs::ncaa::query;
-use ncaa_data_rs::ncaa::basketball::boxscore::Boxscore;
+use ncaa_data_rs::ncaa::basketball;
+use basketball::boxscore::Boxscore;
 
 
 #[derive(Properties, PartialEq)]
@@ -105,16 +106,55 @@ pub fn GamePage(props: &GameProps) -> Html {
         }
     }).collect();
 
+    let mut advanced_stats: Html = html! {<div>{"No advanced statistics available"}</div>};
     if team_stats.is_empty() {
         team_stats.push(html! {
                 <div>
                   <h3>{"No boxscore available yet for this game"}</h3>
                 </div>
         });
-    };
+    } else {
+        // some stats exist, so lets calculate!
+        let tempo_free_stats = basketball::advanced::calc(
+            &this_game.teams.as_ref().unwrap()[0].player_totals,
+            &this_game.teams.as_ref().unwrap()[1].player_totals,
+        );
+        let meta_teams = &this_game.meta.teams;
+        let mut home_name = &meta_teams[0].short_name;
+        let mut away_name = &meta_teams[1].short_name;
+        if meta_teams[0].id.to_string() != this_game.teams.as_ref().unwrap()[0].id.to_string() {
+            home_name = &meta_teams[1].short_name;
+            away_name = &meta_teams[0].short_name;
+        }
+
+        advanced_stats = html! {
+            <div>
+              <div>
+                <h4>{home_name}</h4>
+                <p>{"eFG percentage: "}{tempo_free_stats.home.efgp}</p>
+                <p>{"Offensive rebounding percentage: "}{tempo_free_stats.home.orbp}</p>
+                <p>{"Defensive rebounding percentage: "}{tempo_free_stats.home.drbp}</p>
+                <p>{"Free throw factor: "}{tempo_free_stats.home.ftf}</p>
+                <p>{"Points per posession: "}{tempo_free_stats.home.ppp}</p>
+              </div>
+              <div>
+                <h4>{away_name}</h4>
+                <p>{"eFG percentage: "}{tempo_free_stats.away.efgp}</p>
+                <p>{"Offensive rebounding percentage: "}{tempo_free_stats.away.orbp}</p>
+                <p>{"Defensive rebounding percentage: "}{tempo_free_stats.away.drbp}</p>
+                <p>{"Free throw factor: "}{tempo_free_stats.away.ftf}</p>
+                <p>{"Points per posession: "}{tempo_free_stats.away.ppp}</p>
+              </div>
+            </div>
+        };
+    }
+
     html! {
         <div>
             <div class="game-header">
+            </div>
+            <div class="game-advanced-stats">
+              {advanced_stats}
             </div>
             <div class="game-team-stats">
                 {team_stats}

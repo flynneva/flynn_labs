@@ -1,4 +1,4 @@
-use chrono::{Datelike, Utc, FixedOffset};
+use chrono::{Datelike, Local};
 
 use yew::html;
 use yew::function_component;
@@ -9,7 +9,7 @@ use crate::pages::Route;
 
 #[function_component]
 pub fn HomePage() -> Html {
-    let current_date = Utc::now().with_timezone(&FixedOffset::east_opt(0).unwrap());
+    let current_date = Local::now();
     let pages= vec![
         Page {
             id: 1,

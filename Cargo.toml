@@ -14,7 +14,7 @@ gloo = "0.11.0"
 wasm-bindgen = "0.2.91"
 wasm-bindgen-futures = "0.4.41"
 # hello_lib = { path = "../hello_lib" }
-ncaa_data_rs = { version = "0.2.5", features = [ "proxy" ] }
+ncaa_data_rs = { version = "0.2.7", features = [ "proxy" ] }
 chrono = "0.4"
 chrono-tz = "0.8.6"
 
