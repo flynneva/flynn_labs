@@ -157,6 +157,7 @@ pub fn GamePage(props: &GameProps) -> Html {
                     ("Offensive Rebounding (%)", 0, 100),
                     ("Defensive Rebounding (%)", 0, 100),
                     ("Free Throw Factor (FTF)", 0, 100),
+                    ("Turnovers (%)", 0, 100),
                     ("Points-per-posession (PPP)", 0, 5)]))
             .tooltip(Tooltip::new())
             .visual_map(VisualMap::new()
@@ -176,6 +177,7 @@ pub fn GamePage(props: &GameProps) -> Html {
                         format!("{:.2}", tempo_free_stats.home.orbp),
                         format!("{:.2}", tempo_free_stats.home.drbp),
                         format!("{:.2}", tempo_free_stats.home.ftf),
+                        format!("{:.2}", tempo_free_stats.home.tovp),
                         format!("{:.2}", tempo_free_stats.home.ppp),
                     ],
                     meta_home.short_name.clone().unwrap())]))
@@ -188,11 +190,12 @@ pub fn GamePage(props: &GameProps) -> Html {
                         format!("{:.2}", tempo_free_stats.away.orbp),
                         format!("{:.2}", tempo_free_stats.away.drbp),
                         format!("{:.2}", tempo_free_stats.away.ftf),
+                        format!("{:.2}", tempo_free_stats.away.tovp),
                         format!("{:.2}", tempo_free_stats.away.ppp),
                     ],
                     meta_away.short_name.clone().unwrap())]));
     
-        let renderer = WasmRenderer::new(600, 400);
+        let renderer = WasmRenderer::new(600, 500);
         
         renderer.render("tempo-free-factors", &chart).unwrap();
     }
