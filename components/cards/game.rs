@@ -2,7 +2,7 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::pages::Route;
+use crate::routes::SportsRoute;
 
 #[derive(Properties, PartialEq)]
 pub struct GameProps {
@@ -54,7 +54,7 @@ pub fn GameCard(props: &GameProps) -> Html {
     };
 
     html! {
-        <Link<Route> classes="link" to={Route::Game { id: game_id.to_string().clone() }}>
+        <Link<SportsRoute> classes="link" to={SportsRoute::Game { id: game_id.to_string().clone() }}>
             <div class="scoreboard-card" id={props.id.clone()}>
                 <div class="scoreboard-team-container home">
                     <h4>{props.home_score.clone()}</h4>
@@ -73,6 +73,6 @@ pub fn GameCard(props: &GameProps) -> Html {
                 </div>
                 {game_clock.clone()}
             </div>
-        </Link<Route>>
+        </Link<SportsRoute>>
     }
 }

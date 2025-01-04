@@ -3,16 +3,10 @@ use chrono::{Datelike, DateTime, FixedOffset};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::pages::{
-    Route,
-};
+use crate::routes::SportsRoute;
 
-use crate::menus::sports_nav_bar::{
-    SportsNavBar,
-};
-use crate::cards::game::{
-    GameCard,
-};
+use crate::menus::sports_nav_bar::SportsNavBar;
+use crate::cards::game::GameCard;
 
 use ncaa_data_rs::ncaa::scoreboard::Scoreboard;
 use ncaa_data_rs::ncaa::sports::Sport;
@@ -28,7 +22,7 @@ pub struct SportProps {
 }
 
 #[function_component]
-pub fn SportsPage(props: &SportProps) -> Html {
+pub fn ScoreboardPage(props: &SportProps) -> Html {
     let navigator = use_navigator().unwrap();
     let sports: Vec<Sport> = supported_sports();
     // Track the currently selected items
@@ -81,7 +75,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
                     active_division.set(division.clone());
                     active_variation.set(variation.clone());
                     fetch_new_games.set(true);
-                    navigator.push(&Route::Sports {
+                    navigator.push(&SportsRoute::Scoreboard {
                         sport: sport.name.to_string().clone(),
                         variation: variation.to_string(),
                         division: division.to_string(),
@@ -106,7 +100,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
                 for variation in variations.iter() {
                     if variation.contains(&variation_name) {
                         active_variation.set(variation_name.clone());
-                        navigator.push(&Route::Sports {
+                        navigator.push(&SportsRoute::Scoreboard {
                             sport: active_sport.name.to_string().clone(),
                             variation: variation_name.to_string(),
                             division: active_division.to_string(),
@@ -133,7 +127,7 @@ pub fn SportsPage(props: &SportProps) -> Html {
             } else {
                 active_division.set(active_sport.divisions[0].clone());
             }
-            navigator.push(&Route::Sports {
+            navigator.push(&SportsRoute::Scoreboard {
                 sport: active_sport.name.to_string().clone(),
                 variation: active_variation.to_string(),
                 division: division.to_string(),
