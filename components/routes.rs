@@ -23,6 +23,8 @@ pub enum SportsRoute {
     Root,
     #[at("/sports/:sport/:variation/:division/:year/:month/:day")]
     Scoreboard {sport: String, variation: String, division: String, year: i32, month: u32, day: u32},
+    #[at("/sports/game")]
+    GameRoot,
     #[at("/sports/game/:id")]
     Game {id: String},
     #[not_found]

@@ -1,41 +1,27 @@
 use yew::prelude::*;
 
-// use ncaa_data_rs::ncaa::query;
-use ncaa_data_rs::ncaa::{
-    sports::supported_sports,
-    sports::Sport,
-};
-
 use crate::menus::nav_bar::NavBar;
 use crate::menus::dropdown::MenuDropdown;
 use crate::menus::common::Item;
 
-
-#[derive(Properties, PartialEq)]
-pub struct Props {
-    pub on_sport_select: Callback<String>,
-    pub on_variation_select: Callback<String>,
-    pub on_division_select: Callback<String>,
-}
+use crate::pages::sports::{ActiveSport, ActiveSportAction};
 
 #[function_component(SportsNavBar)]
-pub fn sports_nav_bar(props: &Props) -> Html {
-    let sports: Vec<Sport> = supported_sports();
+pub fn sports_nav_bar() -> Html {
     // Track the currently selected items
-    let active_sport = use_state(|| sports[0].clone());
-    // let active_variation = use_state(|| "men".to_string());
-    // let active_division = use_state(|| "d1".to_string());
-    // TODO: should this be its own fn?
+    let ctx_sport = use_reducer(ActiveSport::default);
+    let active_sport = use_state(|| ctx_sport.supported_sports[0].clone());
+
     // Generate all the sports to select
     let mut sport_options: Vec<_> = vec![];
-    for (_, sport) in sports.iter().enumerate() {
+    for (_, sport) in ctx_sport.supported_sports.iter().enumerate() {
         let onclick = Callback::from({
             let sport = sport.clone();
-            let on_sport_select = props.on_sport_select.clone();
             let active_sport = active_sport.clone();
+            let ctx_sport = ctx_sport.clone();
             move |_| {
                 active_sport.set(sport.clone());
-                on_sport_select.emit(sport.name.to_string())
+                ctx_sport.dispatch(ActiveSportAction::SetSport(sport.name.to_string()));
         }});
         sport_options.push(Item{
             display_name: sport.name.clone(),
@@ -47,8 +33,7 @@ pub fn sports_nav_bar(props: &Props) -> Html {
         division_options.push({
             let onclick = Callback::from({
                 let division = division.clone();
-                let on_division_select = props.on_division_select.clone();
-                move |_| { on_division_select.emit(division.to_string())}
+                move |_| {ctx_sport.dispatch(ActiveSportAction::SetDivision(division.to_string()))}
             });
             Item{
                 display_name: division.to_string(),
@@ -63,8 +48,8 @@ pub fn sports_nav_bar(props: &Props) -> Html {
             variation_options.push({
                 let onclick = Callback::from({
                     let sanitized_variation = sanitized_variation.clone();
-                    let on_variation_select = props.on_variation_select.clone();
-                    move |_| { on_variation_select.emit(sanitized_variation.clone())}
+                    move |_| {
+                        ctx_sport.dispatch(ActiveSportAction::SetVariation(sanitized_variation.to_string()))}
                 });
                 Item{
                     display_name: sanitized_variation.to_string(),

@@ -7,11 +7,9 @@ use components::switches::switch_main;
 #[function_component]
 fn App() -> Html {
     html! {
-        <>
-          <HashRouter>
-            <Switch <MainRoute> render={switch_main} />
-          </HashRouter>
-        </>
+        <HashRouter>
+          <Switch <MainRoute> render={switch_main} />
+        </HashRouter>
     }
 }
 
