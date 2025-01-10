@@ -1425,8 +1425,6 @@ dependencies = [
 [[package]]
 name = "ncaa_data_rs"
 version = "1.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "584955c41989e2d75604218196d66602a00736a36c2b88b4b2059c0571f48054"
 dependencies = [
  "chrono",
  "clap",

@@ -13,7 +13,8 @@ gloo-utils = "0.2.0"
 gloo = "0.11.0"
 wasm-bindgen = "0.2.91"
 wasm-bindgen-futures = "0.4.41"
-ncaa_data_rs = { version = "1.0.2", features = [ "proxy" ] }
+ncaa_data_rs = { version = "1.0.3", features = [ "proxy" ] }
+# ncaa_data_rs = { path = "../ncaa-data-rs", features = [ "proxy" ] }
 chrono = "0.4"
 chrono-tz = "0.10.0"
 charming = {version = "0.4.0", features = [ "wasm" ] }

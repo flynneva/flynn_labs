@@ -1,10 +1,6 @@
 use yew::prelude::*;
-use yew::html::IntoPropValue;
 
-use ncaa_data_rs::ncaa::sport::{
-    Get,
-    SportFromStr,
-};
+use ncaa_data_rs::ncaa::sport::Get;
 use ncaa_data_rs::ncaa::scoreboard::Scoreboard;
 use ncaa_data_rs::ncaa::sport::BaseQueries;
 
@@ -20,7 +16,7 @@ pub struct Props<T: PartialEq> {
 #[function_component]
 pub fn ScoreboardPage<T>(props: &Props<T>) -> Html
 where
-    T: Clone + PartialEq + Default + BaseQueries + Get + SportFromStr<T> + 'static,
+    T: Clone + PartialEq + Default + BaseQueries + Get + 'static,
 {
     let sport = use_state(|| props.sport.clone());
     let scoreboard = use_state(|| Scoreboard::default());
@@ -37,7 +33,8 @@ where
     let mut games: Vec<_> = Vec::new();
     
     for (index, game) in scoreboard.games.iter().enumerate() {
-        games.push(html! {<GameCard game={game.clone()} index={index} />})
+        let game_id = scoreboard.get_id_of_game(index);
+        games.push(html! {<GameCard<T> sport={sport.deref().clone()} game={game.clone()} id={game_id} />})
     }
 
     html! {
@@ -46,7 +43,7 @@ where
                 format!(
                     "{} {} games",
                     sport.deref().division(),
-                    sport.deref().name(),
+                    sport.deref().sport(),
                 )
             }</h1>
             <div class="scoreboard-games">

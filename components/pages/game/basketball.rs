@@ -1,9 +1,10 @@
 use yew::prelude::*;
 
-// use ncaa_data_rs::ncaa::football::Football;
+use ncaa_data_rs::ncaa::game::QueryBoxscore;
 use ncaa_data_rs::ncaa::basketball::{
     BasketballGame,
     boxscore::Boxscore,
+    advanced,
 };
 
 
@@ -15,24 +16,28 @@ use charming::{
     WasmRenderer,
 };
 
+use std::ops::Deref;
+
 #[derive(Properties, PartialEq)]
-pub struct BasketballGame {
-    pub game: BasketballGame,
+pub struct Props{
+    pub game: BasketballGame,  // always a BasketballGame type
 }
 
 #[function_component]
-pub fn BasketballGamePage(props: &BasketballGameProps) -> Html {
-    let game = use_state(|| BasketballGame::default());
+pub fn BasketballGamePage(props: &Props) -> Html {
+    let game = use_state(|| props.game.clone());
     let boxscore = use_state(|| Boxscore::default());
 
+    let boxscore_clone = boxscore.clone();
     use_effect_with(game.clone(), move |_| {
         wasm_bindgen_futures::spawn_local(async move {
-            boxscore.set(game.boxscore().await?)
+            let boxscore = boxscore_clone.clone();
+            boxscore.set(game.deref().boxscore().await.expect("No boxscore available"))
         })
     });
 
-    let mut team_stats: Vec<_> = game.meta.teams.iter().map(|team| {
-        let Some(ref teams) = game.teams else { todo!() };
+    let mut team_stats: Vec<_> = boxscore.deref().meta.teams.iter().map(|team| {
+        let Some(ref teams) = boxscore.deref().teams else { todo!() };
         let boxscore = if team.id == teams[0].id.to_string() {
             &teams[0]
         } else {
@@ -116,14 +121,14 @@ pub fn BasketballGamePage(props: &BasketballGameProps) -> Html {
         });
     } else {
         // some stats exist, so lets calculate!
-        let tempo_free_stats = basketball::advanced::calc(
-            &game.teams.as_ref().unwrap()[0].player_totals,
-            &game.teams.as_ref().unwrap()[1].player_totals,
+        let tempo_free_stats = advanced::calc(
+            &boxscore.deref().teams.as_ref().unwrap()[0].player_totals,
+            &boxscore.deref().teams.as_ref().unwrap()[1].player_totals,
         );
-        let meta_teams = &game.meta.teams;
+        let meta_teams = &boxscore.deref().meta.teams;
         let mut meta_home = &meta_teams[0];
         let mut meta_away = &meta_teams[1];
-        if meta_teams[0].id.to_string() != game.teams.as_ref().unwrap()[0].id.to_string() {
+        if meta_teams[0].id.to_string() != boxscore.deref().teams.as_ref().unwrap()[0].id.to_string() {
             meta_home = &meta_teams[1];
             meta_away = &meta_teams[0];
         }

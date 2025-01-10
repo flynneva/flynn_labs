@@ -1,41 +1,45 @@
+mod basketball;
+
 use yew::prelude::*;
-use yew_router::prelude::*;
 
-use ncaa_data_rs::ncaa::{
-    basketball::BasketballGame,
-};
+use ncaa_data_rs::ncaa::sport::Get;
+use ncaa_data_rs::ncaa::Sports;
+use ncaa_data_rs::ncaa::basketball::BasketballGame;
 
-use crate::routes::SportsRoute;
-use crate::switches::switch_sports;
+use ncaa_data_rs::ncaa::game::GameFromStr;
+use ncaa_data_rs::ncaa::game::GameID;
 
-#[derive(Clone, PartialEq)]
-pub struct ActiveGame<G> {
-    pub sport: G,
-}
+use crate::pages::game::basketball::BasketballGamePage;
 
-impl Default for ActiveGame<BasketballGame> {
-    fn default() -> Self {
-        Self {
-            sport: BasketballGame::default(),
-        }
-    }
-}
+use std::ops::Deref;
 
 #[derive(Properties, PartialEq)]
-pub struct GameProps {
-    pub game_id: String,
+pub struct Props<T: PartialEq> {
+    pub game: T,
+    pub selected_sport: Sports,
 }
 
 #[function_component]
-pub fn GamePage(GameProps {game_id}: &GameProps) -> Html {
-    let active_game = use_state(Game::default());
-    let active_sport = use_context::<ActiveSport<S>>.except("No active sport selected");
-
-    
-    
+pub fn GamePage<T>(props: &Props<T>) -> Html
+where
+    T: Clone + PartialEq + Default + Get + GameID + 'static,
+{
+    let game = use_state(|| props.game.clone());
+    let selected_sport = use_state(|| props.selected_sport.clone());
+    let sport_specific_game_page = match selected_sport.deref() {
+        Sports::BASKETBALL => html!{
+            <BasketballGamePage game={
+                <BasketballGame as GameFromStr<BasketballGame>>::from_str(
+                    &game.deref().sport(),
+                    &game.deref().division(),
+                    &game.deref().variation(),
+                    &game.deref().id())
+            .expect("Invalid basketball game parameters")}/>},
+        _ => html!{<div>{"This sports game page has yet to be developed"}</div>},
+    };
     html! {
-        <ContextProvider<ActiveGame> context={(*active_game).clone()}>
-            <Switch<SportsRoute> render={switch_sports} />
-        </ContextProvider<ActiveGame>>
+        <div class="game-container">
+            {sport_specific_game_page}
+        </div>
     }
 }
