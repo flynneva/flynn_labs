@@ -8,6 +8,8 @@ pub enum MainRoute {
   Sports,
   #[at("/sports/:sport/:variation/:division")]
   Scoreboard {sport: String, variation: String, division: String},
+  #[at("/game/:id")]
+  Game {id: String },
   #[at("/robots")]
   Robots,
   #[at("/garden")]

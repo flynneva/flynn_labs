@@ -1,43 +1,57 @@
 use yew::prelude::*;
-use yew_router::prelude::*;
 use yew::html::IntoPropValue;
 
+use ncaa_data_rs::ncaa::sport::{
+    Get,
+    SportFromStr,
+};
 use ncaa_data_rs::ncaa::scoreboard::Scoreboard;
 use ncaa_data_rs::ncaa::sport::BaseQueries;
-use ncaa_data_rs::ncaa::basketball::Basketball;
-use ncaa_data_rs::ncaa::football::Football;
 
 use crate::cards::game::GameCard;
 
-#[function_component]
-pub fn ScoreboardPage<T>() -> Html
-where
-    T: Clone + PartialEq + Default + BaseQueries + 'static,
-{
-    let navigator = use_navigator().unwrap();
-    let sport = use_state(|| T::default());
-    let scoreboard = use_state(|| Scoreboard::default());
+use std::ops::Deref;
 
+#[derive(Properties, PartialEq)]
+pub struct Props<T: PartialEq> {
+    pub sport: T,
+}
+
+#[function_component]
+pub fn ScoreboardPage<T>(props: &Props<T>) -> Html
+where
+    T: Clone + PartialEq + Default + BaseQueries + Get + SportFromStr<T> + 'static,
+{
+    let sport = use_state(|| props.sport.clone());
+    let scoreboard = use_state(|| Scoreboard::default());
     // extra clone here to use the sport in the closure here and below
     let sport_clone = sport.clone();
     let scoreboard_clone = scoreboard.clone();
     use_effect_with((), move |_| {
         wasm_bindgen_futures::spawn_local(async move {
-            let sport = sport_clone.clone();
             let scoreboard = scoreboard_clone.clone();
-            scoreboard.set(sport.scoreboard(None).await.expect("No scoreboard available"));
+            scoreboard.set(sport_clone.scoreboard(None).await.expect("No scoreboard available"));
         });
     });
 
     let mut games: Vec<_> = Vec::new();
     
     for (index, game) in scoreboard.games.iter().enumerate() {
-        games.push(html! {<GameCard game_index={index} />})
+        games.push(html! {<GameCard game={game.clone()} index={index} />})
     }
 
     html! {
-        <div class="scoreboard-games">
-            {games}
+        <div class="scoreboard">
+            <h1>{
+                format!(
+                    "{} {} games",
+                    sport.deref().division(),
+                    sport.deref().name(),
+                )
+            }</h1>
+            <div class="scoreboard-games">
+                {games}
+            </div>
         </div>
     }
 }
