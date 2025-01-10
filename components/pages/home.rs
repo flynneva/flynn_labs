@@ -1,6 +1,4 @@
-use yew::html;
-use yew::function_component;
-use yew::Html;
+use yew::prelude::*;
 
 use crate::pages::page::*;
 use crate::routes::MainRoute;
@@ -12,7 +10,7 @@ pub fn HomePage() -> Html {
             id: 1,
             title: "Sports".to_string(),
             description: "Things about sports".to_string(),
-            route: MainRoute::SportsRoot,
+            route: MainRoute::Sports,
         },
         Page {
             id: 2,

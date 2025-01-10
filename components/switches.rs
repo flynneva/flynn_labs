@@ -1,56 +1,51 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use chrono::{Datelike, FixedOffset, TimeZone};
+use std::str::FromStr;
 
-use crate::routes::{
-    MainRoute,
-    SportsRoute,
-};
+use crate::routes::MainRoute;
 
 use crate::pages::{
     home::HomePage,
-    sports::SportsPages,
     scoreboard::ScoreboardPage,
-    game::GamePage,
+    // game::GamePage,
     robots::RobotsPage,
     garden::GardenPage,
     not_found::NotFoundPage,
 };
 
-use crate::pages::sports::ActiveSport;
+use ncaa_data_rs::ncaa::Sports;
+use ncaa_data_rs::ncaa::basketball::{
+    Basketball,
+    NAME as BASKETBALL_NAME,
+    Variation as BASKETBALL_VARIATION,
+    Division as BASKETBALL_DIVISION,
+};
+use ncaa_data_rs::ncaa::football::Football;
 
 pub fn switch_main(routes: MainRoute) -> Html {
     match routes {
       MainRoute::Home => html! { <HomePage /> },
-      MainRoute::SportsRoot | MainRoute::Sports => html! { <SportsPages />},
+      MainRoute::Sports => html! {
+        <Redirect<MainRoute> to={
+            MainRoute::Scoreboard {
+                sport: BASKETBALL_NAME.to_string(),
+                variation: BASKETBALL_VARIATION::MEN.name(),
+                division: BASKETBALL_DIVISION::D1.name(),
+            }}
+        />
+      },
+      MainRoute::Scoreboard {sport, variation, division} => {
+        let selected_sport = Sports::from_str(&sport);
+        let scoreboard_page =  match selected_sport {
+          Ok(Sports::BASKETBALL) => html!{<ScoreboardPage<Basketball> />},
+          Ok(Sports::FOOTBALL) => html!{<ScoreboardPage<Football> />},
+          _ => html!{<Redirect<MainRoute> to={MainRoute::NotFound} />},
+        };
+        scoreboard_page
+      },
       MainRoute::Robots => html! { <RobotsPage /> },
       MainRoute::Garden => html! { <GardenPage /> },
       MainRoute::NotFound => html! { <NotFoundPage /> },
-    }
-}
-  
-pub fn switch_sports(routes: SportsRoute) -> Html {
-    let active_sport = ActiveSport::default();
-
-    match routes {
-        SportsRoute::Root => html! {<Redirect<SportsRoute> to={SportsRoute::Scoreboard {
-            sport: active_sport.name,
-            variation: active_sport.variation.expect("todo"),
-            division: active_sport.division,
-            year: active_sport.date.year(),
-            month: active_sport.date.month(),
-            day: active_sport.date.day()}} />},
-        SportsRoute::Scoreboard { sport, variation, division, year, month, day} => html! {
-            <ScoreboardPage
-                sport={sport}
-                variation={variation}
-                division={division}
-                date={FixedOffset::east_opt(0).unwrap().with_ymd_and_hms(year, month, day, 0, 0, 0).unwrap()}
-            />
-        },
-        SportsRoute::GameRoot => html! { <Redirect<SportsRoute> to={SportsRoute::Root} /> },
-        SportsRoute::Game { id } => html! { <GamePage id={id} />},
-        SportsRoute::NotFound => html! {<Redirect<MainRoute> to={MainRoute::NotFound} />},
     }
 }
