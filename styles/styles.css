@@ -5,6 +5,7 @@ body {
   font-weight: 400;
   width: 100%;
   max-width: 100%;
+  min-width: 100% !important;
 }
 
 h1, h2, h3, h4, h5 {
@@ -83,6 +84,20 @@ body {
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     transition: 0.3s;
+    padding: 5px;
+}
+
+.card.page {
+  min-width: 350px;
+  max-width: 100%;
+}
+
+.card-page-title {
+  margin: 0;
+}
+
+.card-page-description {
+  margin: 2px;
 }
 
 .gamecard {
@@ -102,7 +117,8 @@ body {
 }
 
 .scoreboard {
-  width: 98%;
+  width: 100%;
+  position: relative;
 }
 
 .scoreboard-games {
@@ -118,9 +134,14 @@ body {
 }
 
 .scoreboard-sport-name {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  right: 20px;
+  right: 0;
+  text-align: right;
+  background-color: #777;
+  margin: 0;
+  padding-right: 5px;
+  width: fit-content;
 }
 
 @media only screen and (max-width: 500px) {
@@ -142,8 +163,8 @@ body {
 
 .scoreboard-team-container {
   float: left;
-  width: 47%;
-  padding: 0 5px;
+  width: 50%;
+  padding: 0 0px;
   margin: 0;
   text-wrap: nowrap;
 }
@@ -191,16 +212,17 @@ body {
   font-weight: 400;
   display: inline-block;
   vertical-align: middle;
-  transform: translate(0%, 0%);
   margin: 0;
 }
 
 .scoreboard-team-rank.home {
-  padding-right: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .scoreboard-team-rank.away {
-  padding-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .scoreboard-team-record.home {
@@ -210,7 +232,7 @@ body {
 
 .scoreboard-team-record.away {
   font-size: 0.8rem;
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 .gamecard:hover,
@@ -226,6 +248,14 @@ body {
 .scroll-container {
     padding: 0px;
     text-align: center;
+}
+
+.page-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 hr.dashed {
