@@ -191,7 +191,7 @@ pub fn BasketballGamePage(props: &Props) -> Html {
                     ],
                     meta_away.short_name.clone().unwrap())]));
     
-        let renderer = WasmRenderer::new(600, 400);
+        let renderer = WasmRenderer::new(400, 300);
         
         renderer.render("tempo-free-factors", &chart).unwrap();
     }

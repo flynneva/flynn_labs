@@ -20,11 +20,11 @@ pub struct PagesListProps {
 #[function_component]
 pub fn PagesList(PagesListProps {pages}: &PagesListProps) -> Html {
     pages.iter().map(|page| html! {
-        <div class="card" key={page.id}>
+        <div class="card page" key={page.id}>
           <Link<MainRoute> classes="link" to={page.route.clone()}>
             <div class="container">
-              <h1>{format!("{}", page.title)}</h1>
-              <p>{format!("{}", page.description)}</p>
+              <h1 class="card-page-title">{format!("{}", page.title)}</h1>
+              <p class="card-page-description">{format!("{}", page.description)}</p>
             </div>
           </Link<MainRoute>>
         </div>
