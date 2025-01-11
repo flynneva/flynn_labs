@@ -59,6 +59,32 @@ small {
 
 a {display: block; width: 100%; max-width: 100%; }
 
+table {
+  border-collapse: collapse;
+}
+
+th,td {
+  padding: 3px;
+  width: fit-content;
+  text-wrap: nowrap;
+}
+
+
+
+thead, .boxscoreHeader
+{
+  width: fit-content;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+td {
+  text-align: right;
+  text-wrap: nowrap;
+  width: fit-content;
+  min-width: fit-content;
+}
+
 body {
     color: #e3e3e3;
     background-color: #1d1d1d;
@@ -272,4 +298,59 @@ hr.solid {
 
 .away {
   text-align: right;
+}
+
+.football-table {
+  width: fit-content;
+}
+
+.football-table-div {
+  display: flex;
+  width: fit-content;
+  margin: 15px;
+  padding: 5px;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.4);
+  transition: 0.3s;
+  align-items: center;
+}
+
+.football-game-page {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  float: left;
+  align-items: center;
+  position: relative;
+}
+
+.table-row-data-total {
+  background-color:#313131;
+}
+
+.football-game-home-tables {
+  display: flex;
+  width: 50%;
+  position: relative;
+  flex-wrap: wrap;
+  float: left;
+  margin: 15px;
+  padding: 5px;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.4);
+  transition: 0.3s;
+  align-items: center;
+  min-width: fit-content;
+}
+
+.football-game-away-tables {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  float: left;
+  margin: 15px;
+  padding: 0px;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.4);
+  transition: 0.3s;
+  align-items: center;
+  min-width: fit-content;
+  max-width: 50%;
 }
