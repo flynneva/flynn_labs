@@ -59,24 +59,28 @@ where
                 division: sport.deref().division(),
                 id: props.id.clone(),
             }}>
-                <div class="scoreboard-card" id={props.game.details.id.clone()}>
-                    <div class="scoreboard-team-container home">
-                        <h4>{props.game.details.home.score.as_str().clone()}</h4>
-                        <div class="scoreboard-team-details">
-                          <h5>{props.game.details.home.names.short.clone()}</h5>
-                          <p>{props.game.details.home.description.clone()}</p>
-                        </div>
-                        
+                <div class="scoreboard-team-container home">
+                    <h4 class="scoreboard-team-score home">{props.game.details.home.score.as_str().clone()}</h4>
+                    <div class="scoreboard-team-details">
+                      <h5 class="scoreboard-team-name home">
+                        <p class="scoreboard-team-rank home">{props.game.details.home.rank.as_str().clone()}</p>
+                        {props.game.details.home.names.char6.clone()}
+                      </h5>
+                      <p class="scoreboard-team-record home">{props.game.details.home.description.clone()}</p>
                     </div>
-                    <div class="scoreboard-team-container away">
-                        <h4>{props.game.details.away.score.as_str().clone()}</h4>
-                        <div class="scoreboard-team-details">
-                          <h5>{props.game.details.away.names.short.clone()}</h5>
-                          <p>{props.game.details.away.description.clone()}</p>
-                        </div>
-                    </div>
-                    {game_clock.clone()}
+                    
                 </div>
+                <div class="scoreboard-team-container away">
+                    <h4 class="scoreboard-team-score away">{props.game.details.away.score.as_str().clone()}</h4>
+                    <div class="scoreboard-team-details">
+                      <h5 class="scoreboard-team-name">
+                        {props.game.details.away.names.char6.clone()}
+                        <p class="scoreboard-team-rank away">{props.game.details.away.rank.as_str().clone()}</p>
+                      </h5>
+                      <p class="scoreboard-team-record away">{props.game.details.away.description.clone()}</p>
+                    </div>
+                </div>
+                {game_clock.clone()}
             </Link<MainRoute>>
         </div>
     }
