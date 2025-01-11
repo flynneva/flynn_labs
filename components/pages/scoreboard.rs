@@ -39,16 +39,16 @@ where
 
     html! {
         <div class="scoreboard">
-            <h1>{
+            <div class="scoreboard-games">
+                {games}
+            </div>
+            <h4 class="scoreboard-sport-name">{
                 format!(
                     "{} {} games",
                     sport.deref().division(),
                     sport.deref().sport(),
                 )
-            }</h1>
-            <div class="scoreboard-games">
-                {games}
-            </div>
+            }</h4>
         </div>
     }
 }
