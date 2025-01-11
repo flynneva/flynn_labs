@@ -49,19 +49,19 @@ pub fn BasketballGamePage(props: &Props) -> Html {
                 <tr>
                     <td>{player.first_name.clone()}</td>
                     <td>{player.last_name.clone()}</td>
-                    <th>{player.position.clone()}</th>
-                    <th>{player.points.clone()}</th>
-                    <th>{player.field_goals_made.clone()}</th>
-                    <th>{player.three_points_made.clone()}</th>
-                    <th>{player.free_throws_made.clone()}</th>
-                    <th>{player.total_rebounds.clone()}</th>
-                    <th>{player.offensive_rebounds.clone()}</th>
-                    <th>{player.assists.clone()}</th>
-                    <th>{player.personal_fouls.clone()}</th>
-                    <th>{player.steals.clone()}</th>
-                    <th>{player.turnovers.clone()}</th>
-                    <th>{player.blocked_shots.clone()}</th>
-                    <th>{player.minutes_played.clone()}</th>
+                    <td>{player.position.clone()}</td>
+                    <td>{player.points.clone()}</td>
+                    <td>{player.field_goals_made.clone()}</td>
+                    <td>{player.three_points_made.clone()}</td>
+                    <td>{player.free_throws_made.clone()}</td>
+                    <td>{player.total_rebounds.clone()}</td>
+                    <td>{player.offensive_rebounds.clone()}</td>
+                    <td>{player.assists.clone()}</td>
+                    <td>{player.personal_fouls.clone()}</td>
+                    <td>{player.steals.clone()}</td>
+                    <td>{player.turnovers.clone()}</td>
+                    <td>{player.blocked_shots.clone()}</td>
+                    <td>{player.minutes_played.clone()}</td>
                 </tr>
         }}).collect();
 
@@ -70,7 +70,7 @@ pub fn BasketballGamePage(props: &Props) -> Html {
                 <h3 class="game-team-name">{team.short_name.clone()}</h3>
                 <table class="styled-table">
                     <thead>
-                        <tr>
+                        <tr class="table-row-header" style={"background-color:".to_owned() + "#313131"}>
                             <th>{"FIRST"}</th>
                             <th>{"LAST"}</th>
                             <th>{boxscore.player_header.position.clone()}</th>
@@ -90,21 +90,22 @@ pub fn BasketballGamePage(props: &Props) -> Html {
                     </thead>
                     <tbody>
                         {player_stats}
-                        <tr>
+                        <tr class="table-row-data-total">
                             <td></td>
                             <td></td>
-                            <td></td>
+                            <td>{"Totals"}</td>
                             <td>{boxscore.player_totals.points.clone()}</td>
-                            <th>{boxscore.player_totals.field_goals_made.clone()}</th>
-                            <th>{boxscore.player_totals.three_points_made.clone()}</th>
-                            <th>{boxscore.player_totals.free_throws_made.clone()}</th>
-                            <th>{boxscore.player_totals.total_rebounds.clone()}</th>
-                            <th>{boxscore.player_totals.offensive_rebounds.clone()}</th>
-                            <th>{boxscore.player_totals.assists.clone()}</th>
-                            <th>{boxscore.player_totals.personal_fouls.clone()}</th>
-                            <th>{boxscore.player_totals.steals.clone()}</th>
-                            <th>{boxscore.player_totals.turnovers.clone()}</th>
-                            <th>{boxscore.player_totals.blocked_shots.clone()}</th>
+                            <td>{boxscore.player_totals.field_goals_made.clone()}</td>
+                            <td>{boxscore.player_totals.three_points_made.clone()}</td>
+                            <td>{boxscore.player_totals.free_throws_made.clone()}</td>
+                            <td>{boxscore.player_totals.total_rebounds.clone()}</td>
+                            <td>{boxscore.player_totals.offensive_rebounds.clone()}</td>
+                            <td>{boxscore.player_totals.assists.clone()}</td>
+                            <td>{boxscore.player_totals.personal_fouls.clone()}</td>
+                            <td>{boxscore.player_totals.steals.clone()}</td>
+                            <td>{boxscore.player_totals.turnovers.clone()}</td>
+                            <td>{boxscore.player_totals.blocked_shots.clone()}</td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,7 +192,7 @@ pub fn BasketballGamePage(props: &Props) -> Html {
                     ],
                     meta_away.short_name.clone().unwrap())]));
     
-        let renderer = WasmRenderer::new(400, 300);
+        let renderer = WasmRenderer::new(400, 400);
         
         renderer.render("tempo-free-factors", &chart).unwrap();
     }

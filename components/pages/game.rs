@@ -1,16 +1,18 @@
 mod basketball;
+mod football;
 
 use yew::prelude::*;
 
 use ncaa_data_rs::ncaa::sport::Get;
 use ncaa_data_rs::ncaa::Sports;
 use ncaa_data_rs::ncaa::basketball::BasketballGame;
+use ncaa_data_rs::ncaa::football::FootballGame;
 
 use ncaa_data_rs::ncaa::game::GameFromStr;
 use ncaa_data_rs::ncaa::game::GameID;
 
 use crate::pages::game::basketball::BasketballGamePage;
-
+use crate::pages::game::football::FootballGamePage;
 use std::ops::Deref;
 
 #[derive(Properties, PartialEq)]
@@ -35,7 +37,15 @@ where
                     &game.deref().variation(),
                     &game.deref().id())
             .expect("Invalid basketball game parameters")}/>},
-        _ => html!{<div>{"This sports game page has yet to be developed"}</div>},
+        Sports::FOOTBALL => html!{
+            <FootballGamePage game={
+                    <FootballGame as GameFromStr<FootballGame>>::from_str(
+                        &game.deref().sport(),
+                        &game.deref().division(),
+                        &game.deref().variation(),
+                        &game.deref().id())
+                .expect("Invalid football game parameters")}/>},
+        // _ => html!{<div>{"This sports game page has yet to be developed"}</div>},
     };
     html! {
         <div class="game-container">
