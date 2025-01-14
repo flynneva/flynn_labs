@@ -354,3 +354,11 @@ hr.solid {
   min-width: fit-content;
   max-width: 50%;
 }
+
+.dropdown-menu {
+  display: none;
+}
+
+.show {
+  display: block;
+}
