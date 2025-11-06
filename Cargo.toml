@@ -2,22 +2,23 @@
 name = "flynn_labs"
 version = "0.2.0"
 edition = "2021"
+resolver = "2"
 license = "MIT"
 
 [dependencies]
 yew = { version = "0.21", features = ["csr"] }
 yew-router = "0.18"
-yew-hooks = "0.3.0"
+yew-hooks = "0.3.4"
 gloo-events = "0.2.0"
 gloo-utils = "0.2.0"
 gloo = "0.11.0"
-wasm-bindgen = "0.2.91"
-wasm-bindgen-futures = "0.4.41"
+wasm-bindgen = "0.2.105"
+wasm-bindgen-futures = "0.4.55"
 ncaa_data_rs = { version = "1.0.3", features = [ "proxy" ] }
 # ncaa_data_rs = { path = "../ncaa-data-rs", features = [ "proxy" ] }
-chrono = "0.4"
-chrono-tz = "0.10.0"
-charming = {version = "0.4.0", features = [ "wasm" ] }
+chrono = "0.4.42"
+chrono-tz = "0.10.4"
+charming = {version = "0.6.0", features = [ "wasm" ] }
 
 [lib]
 name = "components"
@@ -26,3 +27,6 @@ path = "./components/lib.rs"
 [[bin]]
 name = "flynn_labs"
 path = "./main.rs"
+
+[unstable]
+bindeps = true

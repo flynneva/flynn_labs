@@ -9,17 +9,20 @@ rust_binary(
         "@crates//:yew",
         "@crates//:yew-router",
         "@crates//:chrono",
-    ]
+    ],
 )
 
 sh_binary(
     name = "serve",
     srcs = ["serve.sh"],
+    args = [
+        "$(rlocationpath @crates//:trunk__trunk)",
+    ],
     data = [
         ":flynn_labs",
         "//styles",
         "index.html",
         "Trunk.toml",
-        # "@crates//:trunk",
+        "@crates//:trunk__trunk",
     ],
 )
