@@ -2,7 +2,6 @@
 name = "flynn_labs"
 version = "0.2.0"
 edition = "2021"
-resolver = "2"
 license = "MIT"
 
 [dependencies]
