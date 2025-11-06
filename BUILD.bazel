@@ -15,14 +15,12 @@ rust_binary(
 sh_binary(
     name = "serve",
     srcs = ["serve.sh"],
-    args = [
-        "$(rlocationpath @crates//:trunk__trunk)",
-    ],
+    # args = ["$(rlocationpath @crates//:trunk__trunk)"],
     data = [
         ":flynn_labs",
         "//styles",
         "index.html",
         "Trunk.toml",
-        "@crates//:trunk__trunk",
+        # "@crates//:trunk__trunk",
     ],
 )

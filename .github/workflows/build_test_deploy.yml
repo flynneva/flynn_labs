@@ -23,8 +23,7 @@ jobs:
         os:
           - ubuntu
         version:
-          # Non-default ubunut versions that are supported
-          - 20.04
+          # Non-default ubuntu versions that are supported
           - 22.04
     runs-on: ${{ matrix.os }}-${{ matrix.version }}
     steps:
@@ -39,7 +38,7 @@ jobs:
       # - name: Test
       #   run: bazel test //...
       - name: Store the bazel-testlogs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ${{ matrix.os }}-${{ matrix.version }}-bazel-testlogs
@@ -59,7 +58,7 @@ jobs:
       # - name: Test
       #   run: bazel test //...
       - name: Store the bazel-testlogs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: default-bazel-testlogs
