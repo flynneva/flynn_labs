@@ -4,16 +4,23 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+bazel_dep(name = "platforms", version = "1.0.0")
 
-bazel_dep(name = "rules_rust", version = "0.56.0")
+bazel_dep(name = "rules_rust", version = "0.67.0")
 
-rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
-rust.toolchain(
-    edition = "2021",
-    versions = ["1.75.0"],
+# taken from rules_rust example for bindeps:
+# https://github.com/bazelbuild/rules_rust/blob/3239a0ee48c28d474484c321fb6f89f76aac11ae/examples/crate_universe/MODULE.bazel#L263
+rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_tools")
+rust_host_tools.host_tools(
+    name = "rust_host_tools_nightly",
+    version = "nightly",
 )
-use_repo(rust, "rust_toolchains")
-register_toolchains("@rust_toolchains//:all")
+use_repo(
+    rust_host_tools,
+    "rust_host_tools_nightly",
+)
+# register the toolchains (nightly)
+register_toolchains("@rust_host_tools_nightly//:all")
 
 crate = use_extension(
     "@rules_rust//crate_universe:extension.bzl",
@@ -23,5 +30,8 @@ crate.from_cargo(
     name = "crates",
     cargo_lockfile = "//:Cargo.lock",
     manifests = ["//:Cargo.toml"],
+    generate_binaries = True,
+    host_tools = "@rust_host_tools_nightly",
 )
+
 use_repo(crate, "crates")

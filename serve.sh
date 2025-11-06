@@ -1,1 +1,1 @@
-trunk serve --open
+../$1 build
