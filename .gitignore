@@ -1,7 +1,2 @@
-/dist
-/target
-
-# Bazel files
-bazel-*
-user.bazelrc
-
+/site
+/.venv
