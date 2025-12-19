@@ -56,3 +56,14 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+#minirobot-viewport{
+    flex: 0 0 300px;
+    border: 2px solid #444;
+    margin: 8px;
+    position: relative;
+}
+
+canvas {
+    display: block;
+}

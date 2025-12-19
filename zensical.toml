@@ -9,7 +9,7 @@ repo_name = "flynneva/flynn_labs"
 repo_url = "https://github.com/flynneva/flynn_labs.git"
 edit_uri = "edit/main/"
 
-copyright = "&copy; 2025 Evan Flynn"
+copyright = "&copy; 2026 Evan Flynn"
 
 docs_dir = "flynn_labs"
 
@@ -19,8 +19,9 @@ navigation = [
 ]
 
 extra_css = ["assets/stylesheets/extra.css"]
-
-# extra_javascript = ["assets/javascript/homepage.js"]
+extra_javascript = [
+    "assets/javascript/minirobot.mjs",
+]
 
 [project.theme]
 #variant = "classic"
