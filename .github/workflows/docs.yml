@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Configure Pages
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: actions/configure-pages@v5
       - name: Checkout
         uses: actions/checkout@v5
