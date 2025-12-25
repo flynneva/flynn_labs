@@ -11,15 +11,9 @@ permissions:
   pages: write
   id-token: write
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure Pages
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: actions/configure-pages@v5
       - name: Checkout
         uses: actions/checkout@v5
       - name: Setup Python
@@ -34,6 +28,15 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: site
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
       - name: Deploy
-        if: ${{ github.ref == 'refs/heads/main' }}
         uses: actions/deploy-pages@v4
