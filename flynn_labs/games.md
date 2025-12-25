@@ -1,5 +1,6 @@
 ---
 comments: true
+template: games.html
 ---
 
 # Games
@@ -15,3 +16,11 @@ We'll see how far I get or if this idea will crash and burn like many of my othe
 Keep moving forward. :rocket:
 
 !!! warning "Under construction"
+
+### Minirobot
+
+Below should be a little window that is actually a 3D world, allowing you to control a little mini robot and move around a bit. Bare with me as I extend this to be more interesting.
+
+<div id="minirobot-viewport"></div>
+
+<script type="module" src="assets/javascript/minirobot.mjs"></script>

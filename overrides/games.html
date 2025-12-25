@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@latest/build/three.module.js",
+            "orbitcontrols": "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js",
+            "stats": "https://unpkg.com/three@latest/examples/jsm/libs/stats.module.js"
+        }
+    }
+  </script>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

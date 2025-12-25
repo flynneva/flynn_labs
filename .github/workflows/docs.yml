@@ -11,22 +11,32 @@ permissions:
   pages: write
   id-token: write
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - name: Install zensical
+        run: pip install zensical
+      - name: Build
+        run: zensical build --clean
+      - name: Upload site as artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
   deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/configure-pages@v5
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-      - run: pip install zensical
-      - run: zensical build --clean
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: site
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
       - name: Deploy
-        if: ${{ github.ref == 'refs/heads/main' }}
         uses: actions/deploy-pages@v4
